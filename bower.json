@@ -1,0 +1,25 @@
+{
+  "name": "underscore.db",
+  "main": "dist/underscore.db.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/typicode/underscore.db",
+  "authors": [
+    "Typicode <typicode@gmail.com>"
+  ],
+  "description": "Use JavaScript objects as databases",
+  "keywords": [
+    "JavaScript",
+    "Underscore",
+    "database",
+    "datastore",
+    "JSON",
+    "object"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
