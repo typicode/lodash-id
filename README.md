@@ -20,11 +20,10 @@ Moreover, since Underscore.db is a set of mixins for Underscore or Lo-Dash, you 
 ## Features
 
 * __One of the smallest pure JavaScript database *__
-* __Built on top of Underscore and compatible with Lo-Dash__
-* Can be extended by other mixins
+* Built on top of Underscore and compatible with Lo-Dash
+* Cross-browser and embeddable
 * Native functions can be used
-* Cross-browser
-* Doesn't mess with your objects
+* Doesn't hide the database from you
 
 _* Only ~200 bytes minified and gzipped, ~5kb with Underscore or ~3kb with the custom minimal Lo-Dash build._
 
