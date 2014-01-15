@@ -15,7 +15,7 @@ For Node projects, it can be a way to free users from running a database or for 
 Moreover, since Underscore.db is a set of mixins for Underscore or Lo-Dash, you can get advantages from either project: 
 
 * Underscore - 10000+ stars project with familiar API and powerful data manipulation functions
-* Lo-Dash - performance oriented code and optimal custom builds
+* Lo-Dash - more features, performance oriented code and optimal custom builds
 
 ## Features
 
@@ -81,7 +81,9 @@ var removedComments = _.removeWhere(db.comments, {postId: 1});
 
 Here are some common use cases to get you started.
 
-Most of them rely on [Underscore](http://underscorejs.org/) or even native functions since the database is a simple JavaScript object.
+Most of them rely on [Underscore](http://underscorejs.org/) methods or even native functions since the database is a simple JavaScript object.
+
+Also, as a side note, Lo-Dash have features that Underscore have not. So if you need something that Underscore doesn't provide, you may find what you want with [Lo-Dash](http://lodash.com/).
 
 __Query__
 
