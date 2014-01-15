@@ -6,6 +6,8 @@
 
 > __Lightweight__ pure JavaScript database library for __Node and the browser__.
 
+_You can try it in the browser here: [**demo page**](http://typicode.github.io/underscore.db)._
+
 ## Why
 
 __With Underscore.db, you can use simple JavaScript objects as databases.__
@@ -27,11 +29,14 @@ Moreover, since Underscore.db is a set of mixins for Underscore or Lo-Dash, you 
 
 _* Only ~200 bytes minified and gzipped, ~5kb with Underscore or ~3kb with the custom minimal Lo-Dash build._
 
-## Try it!
-
-[Demo page](http://typicode.github.io/underscore.db)
-
 ## Setup
+
+Node
+
+```javascript
+var _ = require('underscore');
+_.mixin(require('underscore.db'));
+```
 
 Browser
 
@@ -40,12 +45,6 @@ Browser
 <script src="underscore.db.js" type="text/javascript"></script>
 ```
 
-Node
-
-```javascript
-var _ = require('underscore');
-_.mixin(require('underscore.db'));
-```
 
 ## API
 
@@ -124,15 +123,6 @@ delete db.posts;     // destroy
 
 __Persist and load data__
 
-Browser
-
-```javascript
-// persist
-localStorage.setItem('db', JSON.stringify(db));
-// load
-var db = JSON.parse(localStorage.getItem('db'));
-```
-
 Node
 
 ```javascript
@@ -141,6 +131,15 @@ var fs = require('fs');
 fs.writeFileSync('db.json', JSON.stringify(db));
 // load
 var db = require('./db.json');
+```
+
+Browser
+
+```javascript
+// persist
+localStorage.setItem('db', JSON.stringify(db));
+// load
+var db = JSON.parse(localStorage.getItem('db'));
 ```
 
 __Third-party libraries__
