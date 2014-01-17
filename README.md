@@ -12,9 +12,9 @@ _You can try it in the browser here: [**demo page**](http://typicode.github.io/u
 
 __With Underscore.db, you can use simple JavaScript objects as databases.__
 
-It frees you from running a database if all you need are simple operations. It is implemented as a very small mixin that can be run everywhere.
+It frees you from running a database and it's implemented as a very small mixin that can be run everywhere.
 
-And because it's a mixin for Underscore and Lo-Dash, you get all the advantages of using either project.
+Also because it's a mixin for Underscore and Lo-Dash, you get all the advantages of using either project.
 
 ## Features
 
@@ -24,7 +24,7 @@ And because it's a mixin for Underscore and Lo-Dash, you get all the advantages 
 * Native functions can be used
 * Doesn't hide the database from you
 
-_* Only ~200 bytes minified and gzipped, ~5kb with Underscore or ~3kb with the custom minimal Lo-Dash build._
+_* Only ~200 bytes minified and gzipped, ~5kb with Underscore or ~3kb with a custom minimal Lo-Dash build._
 
 ## Setup
 
