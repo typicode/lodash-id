@@ -4,161 +4,214 @@
 
 # Underscore.db
 
-> __Lightweight__ pure JavaScript database library for __Node and the browser__.
+A small pure JavaScript database for Node, node-webkit and the browser.
 
-_You can try it in the browser here: [**demo page**](http://typicode.github.io/underscore.db)._
+## Introduction
 
-## Why
+Underscore and Lo-Dash are wonderful libraries for manipulating data.
 
-__With Underscore.db, you can use simple JavaScript objects as databases.__
+So instead of creating an all new database library, Underscore.db just adds some CRUD functions and builds on what already exists.
 
-For Node projects, it frees you from running a database or for front-end/mobile projects, it can be a lightweight alternative to store data.
+It adds ```get```, ```insert```, ```update```, ```updateWhere```, ```remove```, ```removeWhere``` and ```createId```.
 
-Also, since Underscore.db is a mixin for Underscore or Lo-Dash, you can get advantages from either project:
+This results in a very small mixin that is less than 240 bytes (minified and gzipped) and that can be embedded anywhere.
 
-* Underscore - familiar API and powerful data manipulation functions
-* Lo-Dash - more features, performance oriented code and optimal custom builds
+## When to use
 
-## Features
+Use it if you:
 
-* __One of the smallest pure JavaScript database *__
-* Built on top of Underscore and compatible with Lo-Dash
-* Cross-browser and embeddable
-* Native functions can be used
-* Doesn't hide the database from you
+* ...need a very small embeddable database
+* ...love to hack and use native objects
 
-_* Only ~200 bytes minified and gzipped, ~5kb with Underscore or ~3kb with a custom minimal Lo-Dash build._
+for:
 
-## Setup
+* ...Express-like servers
+* ...command-line programs
+* ...node-webkit apps
+* ...mobile projects
 
-Node
+And last, it plays very well with other libraries that deals with Object/JSON.
+
+## API
+
+Database example:
+
+```javascript
+var db = {
+  posts: [
+    {id: 1, body: 'one', published: false},
+    {id: 2, body: 'two', published: true}
+  ],
+  comments: [
+    {id: 1, body: 'foo', postId: 1},
+    {id: 2, body: 'bar', postId: 2}
+  ]
+}
+```
+
+### get(collection, id)
+
+Finds and returns document by id or undefined.
+
+```javascript
+var post = _.get(db.posts, 1)
+```
+
+### insert(collection, document)
+
+Adds document to collection, sets an id and returns created document.
+
+```javascript
+var post = _.insert(db.posts, {body: 'New post'});
+```
+
+### update(collection, id, attrs)
+
+Finds document by id, copies properties to it and returns updated document or undefined.
+
+```javascript
+var post = _.update(db.posts, 1, {body: 'Updated body'});
+```
+
+### updateWhere(collection, attrs, whereAttrs)
+
+Finds documents using ```where```, updates documents and returns updated documents or an empty array.
+
+```javascript
+// Publish all unpublished posts
+var posts = _.updateWhere(db.posts, {published: true}, {published: false});
+```
+
+_Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```updateWhere``` can accept more or less options._
+
+### remove(collection, id)
+
+Removes document from collection and returns it or undefined.
+
+```javascript
+var comment = _.remove(db.comments, 1);
+```
+
+### removeWhere(collection, whereAttrs)
+
+Removes documents from collection using ```where``` and returns removed documents or an empty array.
+
+```javascript
+var comments = _.removeWhere(db.comments, {postId: 1});
+```
+
+_Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```removeWhere``` can accept more or less options._
+
+## Install
+
+```bash
+$ npm install underscore.db
+```
 
 ```javascript
 var _ = require('underscore');
 _.mixin(require('underscore.db'));
 ```
 
-Browser
+```bash
+$ bower install underscore.db
+```
 
 ```html
 <script src="underscore.js" type="text/javascript"></script>
 <script src="underscore.db.js" type="text/javascript"></script>
 ```
 
+## FAQ
 
-## API
+### Underscore or Lo-Dash?
 
-JavaScript objects must respect this format:
+It's a matter of preference, both are great and work well with Underscore.db.
+
+However, Lo-Dash may be a better choice if you're focused on size due to the ability to create custom builds and also because some functions have more options.
+
+### How to query?
+
+Everything you need for querying is present in Underscore and Lo-Dash: ```where```, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
+
+See http://underscorejs.org/ or http://lodash.com/docs.
+
+Example:
 
 ```javascript
-var db = {
-  posts: [
-    {id: 1, body: 'foo', views: 10, published: false},
-    {id: 2, body: 'bar', views: 20, published: true}
-  ],
-  comments: [
-    {id: 1, body: 'baz', postId: 1},
-    {id: 2, body: 'qux', postId: 2}
-  ]
-}
+// Using Underscore
+var topFivePosts = _(db.posts)
+  .chain()
+  .where({published: true})
+  .sortBy(function(post) {
+     return post.views;   
+   })
+  .range(5)
+  .value();
+
+// Using Lo-Dash
+var topFivePosts = _(db.posts)
+  .where({published: true})
+  .sortBy('views')
+  .range(5)
+  .value();
 ```
 
-```javascript
-var post            = _.get(db.posts, 1);
+### How to persist?
 
-var insertedPost    = _.insert(db.posts, {body: 'new post', published: false});
+Persisting and loading an object in JavaScript is very easy and therefore saving a database-like object too.
 
-var updatedPost     = _.update(db.posts, 1, {published: true});
-
-var removedPost     = _.remove(db.posts, 1);
-
-var removedComments = _.removeWhere(db.comments, {postId: 1});
-```
-
-## How to
-
-Here are some common use cases to get you started.
-
-Most of them rely on [Underscore](http://underscorejs.org/) methods or even native functions since the database is a simple JavaScript object.
-
-Also, as a side note, Lo-Dash have features that Underscore have not. So if you need something that Underscore doesn't provide, you may find what you want with [Lo-Dash](http://lodash.com/).
-
-__Query__
+Example:
 
 ```javascript
-var publishedPosts = _.where(db.posts, {published: true});
-```
-
-__Sort__
-
-```javascript
-var mostViewedPosts = _.sortBy(db.posts, function(post) {
-  return post.views;
-});
-```
-
-__Batch update__
-
-```javascript
-_.each(db.posts, function unpublish(post) {
-  post.published = false;
-})
-```
-
-__Batch remove__
-
-```javascript
-var db.posts = _.reject(db.posts, function isDraft(post) {
-  return !post.published;
-})
-```
-
-__Replace, empty or destroy table__
-
-```javascript
-db.posts = newPosts; // replace
-db.posts = [];       // empty
-delete db.posts;     // destroy
-```
-
-__Persist and load data__
-
-Node
-
-```javascript
-// persist
+// Node
 var fs = require('fs');
 fs.writeFileSync('db.json', JSON.stringify(db));
-// load
 var db = require('./db.json');
-```
 
-Browser
-
-```javascript
-// persist
+// Browser
 localStorage.setItem('db', JSON.stringify(db));
-// load
 var db = JSON.parse(localStorage.getItem('db'));
 ```
 
-__Third-party libraries__
-
-Also, since Underscore.db works with plain objects, it plays well with other libraries like schema validators, inflectors, ... 
-
-## Using Lo-Dash
+### How to create a custom build?
 
 With Lo-Dash, you can create optimal builds and include just what you need. 
 
+Example:
+
 ```bash
 $ npm install -g lodash-cli
-# Minimal set for Underscore.db to work
-$ lodash underscore include=find,isUndefined,isEmpty,max,clone,extend,indexOf,where
-# Generic data manipulation build for modern browsers
-$ lodash modern category=collections,arrays,chaining
+
+# Minimal build for Underscore.db to work (~2kb min gzipped)
+$ lodash underscore include=find,where,clone,indexOf
 ```
 
-For more builds, see [Lo-Dash custom builds page](http://lodash.com/custom-builds).
+For more build options, see http://lodash.com/custom-builds.
+
+### How is document id generated?
+
+Underscore.db uses a random V4 UUID based on https://gist.github.com/jed/982883. 
+
+But you can use another algorithm if you want to, just override ```createId``` with your custom algorithm after loading/requiring Underscore.db.
+
+Example:
+
+```javascript
+var _ = require('underscore');
+_.mixin(require('underscore.db'));
+
+_.createId = function(collection) {
+  // ...
+  return id;
+}
+```
+
+See also: https://github.com/broofa/node-uuid
+
+### How to do validation?
+
+You can find many lightweight third-party libraries that do object validation. Just use the one that suits the most your project.
 
 ## License
 
