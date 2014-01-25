@@ -64,7 +64,7 @@
   function update(collection, id, attrs) {
     var doc = get(collection, id);
 
-    __update(doc, attrs);
+    if (doc) __update(doc, attrs);
 
     return doc;
   }
