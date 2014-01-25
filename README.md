@@ -207,7 +207,7 @@ _.createId = function(collection) {
 }
 ```
 
-See also: https://github.com/broofa/node-uuid
+See also https://github.com/pid/puid and https://github.com/broofa/node-uuid
 
 ### How to do validation?
 
