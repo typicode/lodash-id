@@ -60,7 +60,7 @@ describe('underscore.db', function() {
     });
 
     it('returns undefined if doc is not found', function() {
-      var doc =_.update(db.posts, 9999, {});
+      var doc =_.update(db.posts, 9999, {published: false});
 
       assert.equal(doc, undefined);
     });
