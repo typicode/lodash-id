@@ -9,91 +9,109 @@ describe('underscore.db', function() {
   beforeEach(function() {
     db = {
       posts: [
-        {id: 1, body: 'foo', published: true},
-        {id: 2, body: 'bar', published: false}
+        {id: 1, body: 'one', published: true},
+        {id: 2, body: 'two', published: false},
+        {id: 3, body: 'three', published: false}
       ],
       comments: [
-        {id: 1, body: 'baz', postId: 1},
-        {id: 2, body: 'qux', postId: 2}
+        {id: 1, body: 'foo', postId: 1},
+        {id: 2, body: 'bar', postId: 2}
       ]
     };
   });
 
   describe('get', function() {
-    it('find row by id', function() {
+    it('returns doc by id', function() {
       var expect = db.posts[0],
-          row = _.get(db.posts, 1);
+          doc = _.get(db.posts, 1);
 
-      assert.deepEqual(row, expect);
-    });
-  });
-
-  describe('exist', function() {
-    it('return true if row exist', function() {
-      assert(_.exist(db.posts, 1));
+      assert.deepEqual(doc, expect);
     });
 
-    it('return false if row doesn\'t exist', function() {
-      assert(!_.exist(db.posts, 999));
+    it('returns undefined if doc is not found', function() {
+      var doc = _.get(db.posts, 9999);
+
+      assert.equal(doc, undefined);
     });
   });
 
   describe('createId', function() {
-    beforeEach(function() {
-      // Flipping posts to check that createId
-      // takes the highest id whatever the order is 
-      db.posts = [db.posts[1], db.posts[0]];
-    });
-
-    it('return an id to be used in table', function() {
-      assert.equal(_.createId(db.posts), 3);
-    });
-
-    it('return 1 if table is empty', function() {
-      db.posts = [];
-      assert.equal(_.createId(db.posts), 1);
+    it('returns an id', function() {
+      assert(_.createId());
     });
   });
 
   describe('insert', function() {
-    it('insert row', function() {
-      var expected = { id: 3, body: 'foo' },
-          insertedRow = _.insert(db.posts, { body: 'foo' });
+    it('inserts, set id, and returns inserted doc', function() {
+      var doc = _.insert(db.posts, {body: 'one' });
 
-      assert.equal(db.posts.length, 3);
-      assert.deepEqual(insertedRow, expected);
+      assert.equal(db.posts.length, 4);
+      assert(doc.id);
+      assert.equal(doc.body, 'one');
     });
   });
 
   describe('update', function() {
-    it('update row', function() {
-      var expected = { id: 1, body: 'foo', published: false },
-          updatedRow =_.update(db.posts, 1, { published: false });
+    it('updates doc and returns updated doc', function() {
+      var doc =_.update(db.posts, 1, {published: false});
 
-      // Asserting both the db and the returned object 
-      // are what we expect
-      assert.deepEqual(db.posts[0], expected);
-      assert.deepEqual(updatedRow, expected);
+      assert(!db.posts[0].published);
+      assert(!doc.published);
+    });
+
+    it('returns undefined if doc is not found', function() {
+      var doc =_.update(db.posts, 9999, {});
+
+      assert.equal(doc, undefined);
     });
   });
 
-  describe('remove', function() {
-    it('remove row', function() {
-      var expected = db.posts[0],
-          removedRow = _.remove(db.posts, 1);
+  describe('updateWhere', function() {
+    it('updates docs and returns updated docs', function() {
+      var docs =_.updateWhere(db.posts, {published: true}, {published: false});
 
-      assert.equal(db.posts.length, 1);
-      assert.deepEqual(removedRow, expected);
+      assert.equal(docs.length, 2);
+      assert(db.posts[1].published);
+      assert(db.posts[2].published);
+    });
+
+    it('returns an empty array if no docs match', function() {
+      var docs =_.updateWhere(db.posts, {published: true}, {published: 'draft'});
+
+      assert.equal(docs.length, 0);
+    });
+  });
+
+
+  describe('remove', function() {
+    it('removes and returns doc ', function() {
+      var expected = db.posts[0],
+          doc = _.remove(db.posts, 1);
+
+      assert.equal(db.posts.length, 2);
+      assert.deepEqual(doc, expected);
+    });
+
+    it('returns undefined if doc is not found', function() {
+      var doc =_.remove(db.posts, 9999);
+
+      assert.equal(doc, undefined);
     });
   });
 
   describe('removeWhere', function() {
-    it('remove rows', function() {
+    it('removes docs', function() {
       var expected = [db.comments[0]],
-          removedRows = _.removeWhere(db.comments, {postId: 1});
+          docs = _.removeWhere(db.comments, {postId: 1});
 
       assert.equal(db.comments.length, 1);
-      assert.deepEqual(removedRows, expected);
+      assert.deepEqual(docs, expected);
+    });
+
+    it('returns an empty array if no docs match', function() {
+      var docs = _.removeWhere(db.comments, {postId: 9999});
+
+      assert.equal(docs.length, 0);
     });
   });
 });
