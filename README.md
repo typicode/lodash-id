@@ -4,7 +4,9 @@
 
 # Underscore.db
 
-A small pure JavaScript database for Node, node-webkit and the browser.
+> A small pure JavaScript database for Node, node-webkit and the browser.
+
+You can try it online [here](http://typicode.github.io/underscore.db/).
 
 ## Introduction
 
