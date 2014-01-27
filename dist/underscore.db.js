@@ -38,7 +38,7 @@
   // Removes an item from an array
   function __remove(array, item) {
     var index = _.indexOf(array, item);
-    if (index != 1) array.splice(index, 1);
+    if (index != -1) array.splice(index, 1);
   }
 
   function get(collection, id) {
