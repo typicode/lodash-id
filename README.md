@@ -75,13 +75,13 @@ Finds document by id, copies properties to it and returns updated document or un
 var post = _.update(db.posts, 1, {body: 'Updated body'});
 ```
 
-### updateWhere(collection, attrs, whereAttrs)
+### updateWhere(collection, whereAttrs, attrs)
 
 Finds documents using ```where```, updates documents and returns updated documents or an empty array.
 
 ```javascript
 // Publish all unpublished posts
-var posts = _.updateWhere(db.posts, {published: true}, {published: false});
+var posts = _.updateWhere(db.posts, {published: false}, {published: true});
 ```
 
 _Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```updateWhere``` can accept more or less options._

@@ -69,7 +69,7 @@
     return doc;
   }
 
-  function updateWhere(collection, attrs, whereAttrs) {
+  function updateWhere(collection, whereAttrs, attrs) {
     var docs = _.where(collection, whereAttrs);
 
     docs.forEach(function(doc) {

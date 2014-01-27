@@ -68,7 +68,7 @@ describe('underscore.db', function() {
 
   describe('updateWhere', function() {
     it('updates docs and returns updated docs', function() {
-      var docs =_.updateWhere(db.posts, {published: true}, {published: false});
+      var docs =_.updateWhere(db.posts, {published: false}, {published: true});
 
       assert.equal(docs.length, 2);
       assert(db.posts[1].published);
@@ -76,7 +76,7 @@ describe('underscore.db', function() {
     });
 
     it('returns an empty array if no docs match', function() {
-      var docs =_.updateWhere(db.posts, {published: true}, {published: 'draft'});
+      var docs =_.updateWhere(db.posts, {published: 'draft'}, {published: true});
 
       assert.equal(docs.length, 0);
     });
