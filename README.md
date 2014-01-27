@@ -148,14 +148,14 @@ var topFivePosts = _(db.posts)
   .sortBy(function(post) {
      return post.views;   
    })
-  .range(5)
+  .first(5)
   .value();
 
 // Using Lo-Dash
 var topFivePosts = _(db.posts)
   .where({published: true})
   .sortBy('views')
-  .range(5)
+  .first(5)
   .value();
 ```
 
