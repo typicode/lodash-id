@@ -16,7 +16,7 @@ So instead of creating an all new database library, Underscore.db just adds some
 
 It adds ```get```, ```insert```, ```update```, ```updateWhere```, ```remove```, ```removeWhere``` and ```createId```.
 
-This results in a very small mixin that is less than 240 bytes (minified and gzipped) and that can be embedded anywhere.
+This results in a very small mixin that is less than 260 bytes (minified and gzipped) and that can be embedded anywhere.
 
 ## When to use
 
@@ -112,7 +112,7 @@ $ npm install underscore.db
 
 ```javascript
 var _ = require('underscore');
-_.mixin(require('underscore.db'));
+require('underscore.db').mixWith(_);
 ```
 
 ```bash

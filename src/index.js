@@ -1,7 +1,8 @@
 (function(root) {
 
-  var _ = root._ || require('underscore');
-  
+  // Set an empty reference to _
+  var _;
+
   // UUID
   // https://gist.github.com/jed/982883
   /* jshint ignore:start */
@@ -97,11 +98,22 @@
     return docs;
   }
 
-  _.get = get;
-  _.createId = createId;
-  _.insert = insert;
-  _.update = update;
-  _.updateWhere = updateWhere;
-  _.remove = remove;
-  _.removeWhere = removeWhere;
+  function mixWith(lib) {
+    _ = lib;
+    _.mixin({
+      get: get,
+      createId: createId,
+      insert: insert,
+      update: update,
+      updateWhere: updateWhere,
+      remove: remove,
+      removeWhere: removeWhere
+    });
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports.mixWith = mixWith;
+  } else {
+    mixWith(root._);
+  }
 })(this);
