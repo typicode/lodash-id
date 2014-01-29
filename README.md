@@ -176,6 +176,8 @@ localStorage.setItem('db', JSON.stringify(db));
 var db = JSON.parse(localStorage.getItem('db'));
 ```
 
+See also https://github.com/simonlast/node-persist
+
 ### How to create a custom build?
 
 With Lo-Dash, you can create optimal builds and include just what you need. 
