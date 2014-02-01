@@ -29,7 +29,7 @@
   }
   /* jshint ignore:end */
 
-  // Copies properties from an object to another
+  // Copies properties from an docect to another
   function __update(dest, src) {
     _.each(src, function(value, key) {
       dest[key] = value;
@@ -48,14 +48,14 @@
     });
   }
 
-  function createId(collection) {
+  function createId() {
     return b();
   }
 
-  function insert(collection, obj) {
-    var clone = _.clone(obj);
+  function insert(collection, doc) {
+    var clone = _.clone(doc);
 
-    if (!clone.hasOwnProperty('id')) clone.id = _.createId(collection);
+    if (!clone.hasOwnProperty('id')) clone.id = _.createId(collection, doc);
 
     collection.push(clone);
 
