@@ -1,7 +1,8 @@
 var assert = require('assert'),
-    _  = require('underscore'),
-    _db = require('../src/');
+    fs = require('fs'),
+    _db = require('../src/node');
 
+// Test underscore.db against Undersocre and Lo-Dash
 var libs = {
   underscore: require('underscore'),
   lodash: require('lodash')
@@ -11,9 +12,10 @@ Object.keys(libs).forEach(function(name) {
 
   describe(name + ' + underscore.db', function() {
 
-    _db.mixWith(libs[name]);
-
     var db;
+    var _ = libs[name];
+    _db.mixWith(_);
+
     
     beforeEach(function() {
       db = {
@@ -123,7 +125,39 @@ Object.keys(libs).forEach(function(name) {
         assert.equal(docs.length, 0);
       });
     });
-  });
 
+    describe('save and load', function() {
+      function clean() {
+        ['db.json', 'mydb.json'].forEach(function(path) {
+          if (fs.existsSync(path)) fs.unlinkSync(path);
+        });
+      }
+
+      beforeEach(clean);
+      afterEach(clean);
+
+      describe('with no options', function() {
+        it('saves and loads database', function() {
+          var actual;
+
+          _.save(db);
+          actual = _.load();
+
+          assert.deepEqual(actual, db);
+        });
+      });
+
+      describe('with options', function() {
+        it('saves and loads database', function() {
+          var actual;
+
+          _.save(db, 'mydb.json');
+          actual = _.load('mydb.json');
+
+          assert.deepEqual(actual, db);
+        });
+      });
+    });
+  });
 });
 

@@ -104,6 +104,22 @@ var comments = _.removeWhere(db.comments, {postId: 1});
 
 _Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```removeWhere``` can accept more or less options._
 
+### save(db, [destination])
+
+Persists database using localStorage or filesystem. If no destination is specified it will save to `db` or `./db.json`.
+
+```javascript
+_.save(db);
+```
+
+### load([source])
+
+Loads database from localStorage or filesystem. If no source is specified it will load from `db` or `./db.json`.
+
+```javascript
+var db = _.load();
+```
+
 ## Install
 
 ```bash
@@ -159,25 +175,6 @@ var topFivePosts = _(db.posts)
   .value();
 ```
 
-### How to persist?
-
-Persisting and loading an object in JavaScript is very easy and therefore saving a database-like object too.
-
-Example:
-
-```javascript
-// Node
-var fs = require('fs');
-fs.writeFileSync('db.json', JSON.stringify(db));
-var db = JSON.parse(fs.readFileSync('db.json', 'utf-8'));
-
-// Browser
-localStorage.setItem('db', JSON.stringify(db));
-var db = JSON.parse(localStorage.getItem('db'));
-```
-
-See also https://github.com/simonlast/node-persist
-
 ### How to create a custom build?
 
 With Lo-Dash, you can create optimal builds and include just what you need. 
@@ -205,9 +202,8 @@ Example:
 var _ = require('underscore');
 _.mixin(require('underscore.db'));
 
-_.createId = function(collection) {
-  // ...
-  return id;
+_.createId = function(collection, doc) {
+  return collection + Date.now();
 }
 ```
 
