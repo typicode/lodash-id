@@ -169,7 +169,7 @@ Example:
 // Node
 var fs = require('fs');
 fs.writeFileSync('db.json', JSON.stringify(db));
-var db = require('./db.json');
+var db = JSON.parse(fs.readFileSync('db.json', 'utf-8'));
 
 // Browser
 localStorage.setItem('db', JSON.stringify(db));
