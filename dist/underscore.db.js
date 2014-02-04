@@ -1,6 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var index = require('./');
 
+index.save = function(db, destination) {
+  destination = destination || 'db';
+  localStorage.setItem(destination, JSON.stringify(db, null, 2));
+};
+
+index.load = function(source) {
+  source = source || 'db';
+  return JSON.parse(localStorage.getItem(source));
+};
+},{"./":2}],2:[function(require,module,exports){
+// Set an empty reference to _
+var _;
+
 // UUID
 // https://gist.github.com/jed/982883
 /* jshint ignore:start */
@@ -27,21 +40,6 @@ function b(
 }
 /* jshint ignore:end */
 
-index.createId = function(collection, doc) {
-  return b();
-};
-
-index.save = function(db) {
-  localStorage.setItem('db', JSON.stringify(db, null, 2));
-};
-
-index.load = function() {
-  return JSON.parse(localStorage.getItem('db'));
-};
-},{"./":2}],2:[function(require,module,exports){
-// Set an empty reference to _
-var _;
-
 // Copies properties from an docect to another
 function __update(dest, src) {
   _.each(src, function(value, key) {
@@ -61,7 +59,7 @@ function get(collection, id) {
   });
 }
 
-function createId() {
+function createId(collection, doc) {
   return b();
 }
 
