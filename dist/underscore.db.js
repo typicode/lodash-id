@@ -10,6 +10,8 @@ index.load = function(source) {
   source = source || 'db';
   return JSON.parse(localStorage.getItem(source));
 };
+
+_.mixin(index);
 },{"./":2}],2:[function(require,module,exports){
 // Set an empty reference to _
 var _;

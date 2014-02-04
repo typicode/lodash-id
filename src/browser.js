@@ -9,3 +9,5 @@ index.load = function(source) {
   source = source || 'db';
   return JSON.parse(localStorage.getItem(source));
 };
+
+_.mixin(index);
