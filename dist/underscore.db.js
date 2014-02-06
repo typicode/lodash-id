@@ -11,7 +11,12 @@ index.load = function(source) {
   return JSON.parse(localStorage.getItem(source));
 };
 
-_.mixin(index);
+index.mixWith = function(lib) {
+  index.set_(lib);
+  lib.mixin(index);
+};
+
+index.mixWith(_);
 },{"./":2}],2:[function(require,module,exports){
 // Set an empty reference to _
 var _;
