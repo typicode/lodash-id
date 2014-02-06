@@ -14,7 +14,7 @@ Underscore and Lo-Dash are wonderful libraries for manipulating data.
 
 So instead of creating an all new database library, Underscore.db just adds some CRUD functions and builds on what already exists.
 
-It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load and `createId`.
+It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId`.
 
 This results in a very small mixin that is less than 0.4kb (minified and gzipped) and that can be embedded anywhere.
 
