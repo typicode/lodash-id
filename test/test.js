@@ -1,4 +1,5 @@
 var assert = require('assert'),
+    sinon = require('sinon'),
     fs = require('fs'),
     _db = require('../src/node');
 
@@ -137,7 +138,7 @@ Object.keys(libs).forEach(function(name) {
       afterEach(clean);
 
       describe('with no options', function() {
-        it('saves and loads database', function() {
+        it('saves and loads database using defaults', function() {
           var actual;
 
           _.save(db);
@@ -148,7 +149,7 @@ Object.keys(libs).forEach(function(name) {
       });
 
       describe('with options', function() {
-        it('saves and loads database', function() {
+        it('saves and loads database using options', function() {
           var actual;
 
           _.save(db, 'mydb.json');
