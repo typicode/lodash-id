@@ -10,9 +10,4 @@ index.load = function(source) {
   return JSON.parse(localStorage.getItem(source));
 };
 
-index.mixWith = function(lib) {
-  index.set_(lib);
-  lib.mixin(index);
-};
-
 index.mixWith(_);
