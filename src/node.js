@@ -11,9 +11,4 @@ index.load = function(source) {
   return JSON.parse(fs.readFileSync(source, 'utf-8'));
 };
 
-index.mixWith = function(lib) {
-  index.set_(lib);
-  lib.mixin(index);
-};
-
 module.exports = index;

@@ -100,8 +100,14 @@ function set_(lib) {
   _ = lib;
 }
 
+function mixWith(lib) {
+  set_(lib);
+  lib.mixin(this);
+}
+
 module.exports = {
   set_: set_,
+  mixWith: mixWith,
   get: get,
   createId: createId,
   insert: insert,
