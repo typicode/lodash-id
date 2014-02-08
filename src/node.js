@@ -11,4 +11,9 @@ index.load = function(source) {
   return JSON.parse(fs.readFileSync(source, 'utf-8'));
 };
 
+index.throttledSave = function(db, destination, wait) {
+  wait = wait || 100;
+  _.throttle(index.save(db, destination), wait);
+}
+
 module.exports = index;
