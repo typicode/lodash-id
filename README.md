@@ -4,35 +4,39 @@
 
 # Underscore.db
 
-> A small pure JavaScript database for Node, node-webkit and the browser.
+## Introduction
+
+__Little pure JavaScript database based on Underscore/Lo-Dash.__
+
+It can be used in Node, node-webkit and the browser.
+
+It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId` to Underscore and Lo-Dash.
+
+## Example
 
 You can try it online [here](http://typicode.github.io/underscore.db/).
 
-## Introduction
+## Install
 
-Underscore and Lo-Dash are wonderful libraries for manipulating data.
+```bash
+$ npm install underscore underscore.db
+```
 
-So instead of creating an all new database library, Underscore.db just adds some CRUD functions and builds on what already exists.
+```javascript
+var _ = require('underscore');
+require('underscore.db').mixWith(_);
+```
 
-It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId`.
+```bash
+$ bower install underscore underscore.db
+```
 
-This results in a very small mixin that is less than 0.4kb (minified and gzipped) and that can be embedded anywhere.
+```html
+<script src="underscore.js" type="text/javascript"></script>
+<script src="underscore.db.js" type="text/javascript"></script>
+```
 
-## When to use
-
-Use it if you:
-
-* ...need a very small embeddable database
-* ...love to hack and use native objects
-
-for:
-
-* ...Express-like servers
-* ...command-line programs
-* ...node-webkit apps
-* ...mobile projects
-
-And last, it plays very well with other libraries that deals with Object/JSON.
+Underscore.db is compatible with Lo-Dash, just replace `underscore` with `lodash`
 
 ## API
 
@@ -51,7 +55,9 @@ var db = {
 }
 ```
 
-### get(collection, id)
+### get
+
+__get(collection, id)__
 
 Finds and returns document by id or undefined.
 
@@ -59,7 +65,9 @@ Finds and returns document by id or undefined.
 var post = _.get(db.posts, 1)
 ```
 
-### insert(collection, document)
+### insert
+
+__insert(collection, document)__
 
 Adds document to collection, sets an id and returns created document.
 
@@ -67,7 +75,9 @@ Adds document to collection, sets an id and returns created document.
 var post = _.insert(db.posts, {body: 'New post'});
 ```
 
-### update(collection, id, attrs)
+### update
+
+__update(collection, id, attrs)__
 
 Finds document by id, copies properties to it and returns updated document or undefined.
 
@@ -75,18 +85,20 @@ Finds document by id, copies properties to it and returns updated document or un
 var post = _.update(db.posts, 1, {body: 'Updated body'});
 ```
 
-### updateWhere(collection, whereAttrs, attrs)
+### updateWhere
 
-Finds documents using ```where```, updates documents and returns updated documents or an empty array.
+__updateWhere(collection, whereAttrs, attrs)__
+
+Finds documents using `_.where`, updates documents and returns updated documents or an empty array.
 
 ```javascript
 // Publish all unpublished posts
 var posts = _.updateWhere(db.posts, {published: false}, {published: true});
 ```
 
-_Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```updateWhere``` can accept more or less options._
+### remove
 
-### remove(collection, id)
+__remove(collection, id)__
 
 Removes document from collection and returns it or undefined.
 
@@ -94,17 +106,19 @@ Removes document from collection and returns it or undefined.
 var comment = _.remove(db.comments, 1);
 ```
 
-### removeWhere(collection, whereAttrs)
+### removeWhere
 
-Removes documents from collection using ```where``` and returns removed documents or an empty array.
+__removeWhere(collection, whereAttrs)__
+
+Removes documents from collection using `_.where` and returns removed documents or an empty array.
 
 ```javascript
 var comments = _.removeWhere(db.comments, {postId: 1});
 ```
 
-_Lo-Dash implementation of ```where``` accepts more options. Depending on the library you use with Underscore.db, ```removeWhere``` can accept more or less options._
+### save
 
-### save(db, [destination])
+save(db, [destination])
 
 Persists database using localStorage or filesystem. If no destination is specified it will save to `db` or `./db.json`.
 
@@ -112,32 +126,14 @@ Persists database using localStorage or filesystem. If no destination is specifi
 _.save(db);
 ```
 
-### load([source])
+### load
+
+load([source])
 
 Loads database from localStorage or filesystem. If no source is specified it will load from `db` or `./db.json`.
 
 ```javascript
 var db = _.load();
-```
-
-## Install
-
-```bash
-$ npm install underscore.db
-```
-
-```javascript
-var _ = require('underscore');
-require('underscore.db').mixWith(_);
-```
-
-```bash
-$ bower install underscore.db
-```
-
-```html
-<script src="underscore.js" type="text/javascript"></script>
-<script src="underscore.db.js" type="text/javascript"></script>
 ```
 
 ## FAQ
@@ -150,7 +146,7 @@ However, Lo-Dash may be a better choice if you're focused on size due to the abi
 
 ### How to query?
 
-Everything you need for querying is present in Underscore and Lo-Dash: ```where```, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
+Everything you need for querying is present in Underscore and Lo-Dash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
 
 See http://underscorejs.org/ or http://lodash.com/docs.
 
@@ -189,29 +185,6 @@ $ lodash underscore include=find,where,clone,indexOf
 ```
 
 For more build options, see http://lodash.com/custom-builds.
-
-### How is document id generated?
-
-Underscore.db uses a random V4 UUID based on https://gist.github.com/jed/982883. 
-
-But you can use another algorithm if you want to, just override ```createId``` with your custom algorithm after loading/requiring Underscore.db.
-
-Example:
-
-```javascript
-var _ = require('underscore');
-_.mixin(require('underscore.db'));
-
-_.createId = function(collection, doc) {
-  return collection + Date.now();
-}
-```
-
-See also https://github.com/pid/puid and https://github.com/broofa/node-uuid.
-
-### How to do validation?
-
-You can find many lightweight third-party libraries that do object validation. Just use the one that suits the most your project.
 
 ## License
 
