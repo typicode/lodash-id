@@ -62,7 +62,7 @@ __get(collection, id)__
 Finds and returns document by id or undefined.
 
 ```javascript
-var post = _.get(db.posts, 1)
+var post = _.get(db.posts, 1);
 ```
 
 ### insert
