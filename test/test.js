@@ -16,7 +16,6 @@ Object.keys(libs).forEach(function(name) {
     var db;
     var _ = libs[name];
     _db.mixWith(_);
-
     
     beforeEach(function() {
       db = {
@@ -157,6 +156,23 @@ Object.keys(libs).forEach(function(name) {
 
           assert.deepEqual(actual, db);
         });
+      });
+    });
+
+    describe('throttledSave', function() {
+      it('waits before calling save', function(done) {
+        sinon.spy(fs, 'writeFileSync');
+        _.throttledSave(db);
+        _.throttledSave(db);
+        _.throttledSave(db);
+        _.throttledSave(db);
+        _.throttledSave(db);
+
+        _.delay(function() {
+          assert.equal(fs.writeFileSync.callCount, 2);
+          fs.writeFileSync.restore();
+          done();
+        }, 400);
       });
     });
   });

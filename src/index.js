@@ -1,5 +1,6 @@
-// Set an empty reference to _
-var _;
+// Set an empty reference to _ because it's not known yet if it will be
+// underscore or lodash
+var _ = require('lodash');
 
 // UUID
 // https://gist.github.com/jed/982883
@@ -100,12 +101,17 @@ function set_(lib) {
   _ = lib;
 }
 
+function get_() {
+  return _;
+}
+
 function mixWith(lib) {
   set_(lib);
   lib.mixin(this);
 }
 
 module.exports = {
+  get_: get_,
   set_: set_,
   mixWith: mixWith,
   get: get,
