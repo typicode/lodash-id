@@ -1,6 +1,6 @@
 // Set an empty reference to _ because it's not known yet if it will be
 // underscore or lodash
-var _ = require('lodash');
+var _;
 
 // UUID
 // https://gist.github.com/jed/982883
