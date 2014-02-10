@@ -162,7 +162,7 @@ Object.keys(libs).forEach(function(name) {
     describe('throttledSave', function() {
       it('waits before calling save', function(done) {
         sinon.spy(fs, 'writeFileSync');
-        
+
         _.throttledSave(db);
         _.throttledSave(db);
         _.throttledSave(db);
@@ -173,7 +173,7 @@ Object.keys(libs).forEach(function(name) {
           assert.equal(fs.writeFileSync.callCount, 2);
           fs.writeFileSync.restore();
           done();
-        }, 400);
+        }, 200);
       });
     });
   });
