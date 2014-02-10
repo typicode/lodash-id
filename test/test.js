@@ -162,6 +162,7 @@ Object.keys(libs).forEach(function(name) {
     describe('throttledSave', function() {
       it('waits before calling save', function(done) {
         sinon.spy(fs, 'writeFileSync');
+        
         _.throttledSave(db);
         _.throttledSave(db);
         _.throttledSave(db);
