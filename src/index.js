@@ -60,7 +60,7 @@ function updateWhere(collection, whereAttrs, attrs) {
 }
 
 function remove(collection, id) {
-  var doc = get(collection, id);
+  var doc = _.get(collection, id);
 
   __remove(collection, doc);
 
