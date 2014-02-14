@@ -4,17 +4,15 @@
 
 # Underscore.db
 
-## Introduction
-
-__Little pure JavaScript database based on Underscore/Lo-Dash.__
+__Adds functions to Underscore/Lo-Dash for manipulating database-like objects.__
 
 It can be used in Node, node-webkit and the browser.
 
-It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId` to Underscore and Lo-Dash.
+It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId`.
 
 ## Example
 
-You can try it online [here](http://typicode.github.io/underscore.db/).
+Try it online [here](http://typicode.github.io/underscore.db/).
 
 ## Install
 
@@ -138,12 +136,6 @@ var db = _.load();
 
 ## FAQ
 
-### Underscore or Lo-Dash?
-
-It's a matter of preference, both are great and work well with Underscore.db.
-
-However, Lo-Dash may be a better choice if you're focused on size due to the ability to create custom builds and also because some functions have more options.
-
 ### How to query?
 
 Everything you need for querying is present in Underscore and Lo-Dash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
@@ -171,16 +163,14 @@ var topFivePosts = _(db.posts)
   .value();
 ```
 
-### How to create a custom build?
+### How to reduce file size?
 
 With Lo-Dash, you can create optimal builds and include just what you need. 
 
-Example:
+Minimal build for Underscore.db to work (~2kb min gzipped):
 
 ```bash
 $ npm install -g lodash-cli
-
-# Minimal build for Underscore.db to work (~2kb min gzipped)
 $ lodash underscore include=find,where,clone,indexOf
 ```
 
