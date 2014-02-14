@@ -42,7 +42,7 @@ function insert(collection, doc) {
 }
 
 function update(collection, id, attrs) {
-  var doc = get(collection, id);
+  var doc = _.get(collection, id);
 
   if (doc) __update(doc, attrs);
 
