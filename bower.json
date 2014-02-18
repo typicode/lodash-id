@@ -1,7 +1,7 @@
 {
   "name": "underscore.db",
   "main": "dist/underscore.db.js",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "homepage": "https://github.com/typicode/underscore.db",
   "authors": [
     "Typicode <typicode@gmail.com>"
@@ -15,7 +15,9 @@
     "database",
     "datastore",
     "JSON",
-    "object"
+    "object",
+    "embed",
+    "embeddable"
   ],
   "license": "MIT",
   "ignore": [
