@@ -15,9 +15,9 @@ Object.keys(libs).forEach(function(name) {
 
     var db;
     var _ = libs[name];
-    _db.mixWith(_);
     
     beforeEach(function() {
+      _db.mixWith(_);
       db = {
         posts: [
           {id: 1, body: 'one', published: true},
@@ -29,6 +29,25 @@ Object.keys(libs).forEach(function(name) {
           {id: 2, body: 'bar', postId: 2}
         ]
       };
+    });
+
+
+    describe('id', function() {
+      beforeEach(function() { _.id = 'body'; });
+      afterEach(function() { _.id = 'id'; });
+
+      it('is the property used by get to find document', function() {
+        var expect = db.posts[0],
+            doc =_.get(db.posts, 'one');
+
+        assert.deepEqual(doc, expect);
+      });
+    });
+
+    describe('createId', function() {
+      it('returns an id', function() {
+        assert(_.createId());
+      });
     });
 
     describe('get', function() {
@@ -46,19 +65,25 @@ Object.keys(libs).forEach(function(name) {
       });
     });
 
-    describe('createId', function() {
-      it('returns an id', function() {
-        assert(_.createId());
-      });
-    });
-
     describe('insert', function() {
-      it('inserts, set id, and returns inserted doc', function() {
-        var doc = _.insert(db.posts, {body: 'one' });
+      describe('id is not set', function() {
+        it('inserts, and returns inserted doc', function() {
+          var doc = _.insert(db.posts, {id: 'foo', body: 'one' });
 
-        assert.equal(db.posts.length, 4);
-        assert(doc.id);
-        assert.equal(doc.body, 'one');
+          assert.equal(db.posts.length, 4);
+          assert.equal(doc.id, 'foo');
+          assert.equal(doc.body, 'one');
+        });
+      });
+
+      describe('id is set', function() {
+        it('inserts, sets id, and returns inserted doc', function() {
+          var doc = _.insert(db.posts, {body: 'one' });
+
+          assert.equal(db.posts.length, 4);
+          assert(doc.id);
+          assert.equal(doc.body, 'one');
+        });
       });
     });
 
@@ -156,24 +181,6 @@ Object.keys(libs).forEach(function(name) {
 
           assert.deepEqual(actual, db);
         });
-      });
-    });
-
-    describe('throttledSave', function() {
-      it('waits before calling save', function(done) {
-        sinon.spy(fs, 'writeFileSync');
-
-        _.throttledSave(db);
-        _.throttledSave(db);
-        _.throttledSave(db);
-        _.throttledSave(db);
-        _.throttledSave(db);
-
-        _.delay(function() {
-          assert.equal(fs.writeFileSync.callCount, 2);
-          fs.writeFileSync.restore();
-          done();
-        }, 200);
       });
     });
   });

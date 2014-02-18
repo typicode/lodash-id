@@ -12,7 +12,17 @@ It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save
 
 ## Example
 
-Try it online [here](http://typicode.github.io/underscore.db/).
+```javascript
+db = {};
+db.posts = []
+
+var id = _.insert(db.posts, {title: 'foo'});
+var post = _.get(db.posts, id);
+
+_.save(db);
+```
+
+Or you can try it online [here](http://typicode.github.io/underscore.db/).
 
 ## Install
 
@@ -50,6 +60,26 @@ var db = {
     {id: 1, body: 'foo', postId: 1},
     {id: 2, body: 'bar', postId: 2}
   ]
+}
+```
+
+### id
+
+Overwrite it if you want to use another id property.
+
+```javascript
+_.id = '_id';
+```
+
+### createId
+
+__createId(collectionName, doc)__
+
+Called by Underscore.db when a document is inserted. Overwrite it if you want to change id generation algorithm.
+
+```javascript
+_.createId = function(collectionName, doc) {
+  return collectionName + '-' + doc.name + '-' + _.random(1, 9999);
 }
 ```
 

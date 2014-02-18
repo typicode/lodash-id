@@ -1,5 +1,3 @@
-// Set an empty reference to _ because it's not known yet if it will be
-// underscore or lodash
 var _;
 
 // UUID
@@ -8,97 +6,78 @@ var _;
 function uuid(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4):4).toString(16):'-');return b}
 /* jshint ignore:end */
 
-// Copies properties from an docect to another
-function __update(dest, src) {
-  _.each(src, function(value, key) {
-    dest[key] = value;
-  });
-}
-
-// Removes an item from an array
-function __remove(array, item) {
-  var index = _.indexOf(array, item);
-  if (index != -1) array.splice(index, 1);
-}
-
-function get(collection, id) {
-  return _.find(collection, function (doc) {
-    return doc.id === id;
-  });
-}
-
-function createId(collection, doc) {
-  return uuid();
-}
-
-function insert(collection, doc) {
-  var clone = _.clone(doc);
-
-  if (!clone.hasOwnProperty('id')) clone.id = _.createId(collection, doc);
-
-  collection.push(clone);
-
-  return clone;
-}
-
-function update(collection, id, attrs) {
-  var doc = _.get(collection, id);
-
-  if (doc) __update(doc, attrs);
-
-  return doc;
-}
-
-function updateWhere(collection, whereAttrs, attrs) {
-  var docs = _.where(collection, whereAttrs);
-
-  docs.forEach(function(doc) {
-    __update(doc, attrs);
-  });
-
-  return docs;
-}
-
-function remove(collection, id) {
-  var doc = _.get(collection, id);
-
-  __remove(collection, doc);
-
-  return doc;
-}
-
-function removeWhere(collection, attrs) {
-  var docs = _.where(collection, attrs);
-
-  docs.forEach(function(doc) {
-    __remove(collection, doc);
-  });
-
-  return docs;
-}
-
-function set_(lib) {
-  _ = lib;
-}
-
-function get_() {
-  return _;
-}
-
-function mixWith(lib) {
-  set_(lib);
-  lib.mixin(this);
-}
-
 module.exports = {
-  get_: get_,
-  set_: set_,
-  mixWith: mixWith,
-  get: get,
-  createId: createId,
-  insert: insert,
-  update: update,
-  updateWhere: updateWhere,
-  remove: remove,
-  removeWhere: removeWhere  
+  // Copies properties from an docect to another
+  __update: function(dest, src) {
+    _.each(src, function(value, key) {
+      dest[key] = value;
+    });
+  },
+  
+  // Removes an item from an array
+  __remove: function(array, item) {
+    var index = _.indexOf(array, item);
+    if (index != -1) array.splice(index, 1);
+  },
+  
+  get: function(collection, id) {
+    return _.find(collection, function(doc) {
+      return doc[_.id] === id;
+    });
+  },
+  
+  createId: function(collection, doc) {
+    return uuid();
+  },
+  
+  insert: function(collection, doc) {
+    doc[_.id] = doc[_.id] || _.createId(collection, doc);
+  
+    collection.push(doc);
+  
+    return doc;
+  },
+  
+  update: function(collection, id, attrs) {
+    var doc = _.get(collection, id);
+  
+    if (doc) _.__update(doc, attrs);
+  
+    return doc;
+  },
+  
+  updateWhere: function(collection, whereAttrs, attrs) {
+    var docs = _.where(collection, whereAttrs);
+  
+    docs.forEach(function(doc) {
+      _.__update(doc, attrs);
+    });
+  
+    return docs;
+  },
+  
+  remove: function(collection, id) {
+    var doc = _.get(collection, id);
+  
+    _.__remove(collection, doc);
+  
+    return doc;
+  },
+  
+  removeWhere: function(collection, attrs) {
+    var docs = _.where(collection, attrs);
+  
+    docs.forEach(function(doc) {
+      _.__remove(collection, doc);
+    });
+  
+    return docs;
+  },
+  
+  mixWith: function(lib) {
+    _ = lib;
+    _.id = 'id';
+    _.mixin(this);
+
+  }
 };
