@@ -14,7 +14,7 @@ It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save
 
 ```javascript
 db = {};
-db.posts = []
+db.posts = [];
 
 var id = _.insert(db.posts, {title: 'foo'});
 var post = _.get(db.posts, id);
