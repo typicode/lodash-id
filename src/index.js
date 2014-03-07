@@ -1,3 +1,5 @@
+// Empty reference to _, 
+// because it's not known yet it will be Underscore or Lo-Dash.
 var _;
 
 // UUID
