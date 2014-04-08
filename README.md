@@ -6,24 +6,23 @@
 
 __Adds functions to Underscore/Lo-Dash for manipulating database-like objects.__
 
-It can be used in Node, node-webkit and the browser.
+It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId` and can be used in Node and the browser.
 
-It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId`.
-
-## Example
+You can try it online [here](http://typicode.github.io/underscore.db/).
 
 ```javascript
-db = {};
-db.posts = [];
+var db = {
+  posts: []
+}
 
 var post = _.insert(db.posts, {title: 'foo'});
-
-_.save(db);
+var post = _.get(db.posts, post.id);
 ```
 
-Or you can try it online [here](http://typicode.github.io/underscore.db/).
 
 ## Install
+
+__Node__
 
 ```bash
 $ npm install underscore underscore.db
@@ -34,6 +33,8 @@ var _ = require('underscore');
 require('underscore.db').mixWith(_);
 ```
 
+__Browser__
+
 ```bash
 $ bower install underscore underscore.db
 ```
@@ -43,11 +44,11 @@ $ bower install underscore underscore.db
 <script src="underscore.db.js" type="text/javascript"></script>
 ```
 
-Underscore.db is compatible with Lo-Dash, just replace `underscore` with `lodash`
+To use Underscore.db with Lo-Dash, just replace `underscore` with `lodash`
 
 ## API
 
-Database example:
+The following database object is used in API examples. 
 
 ```javascript
 var db = {
@@ -131,6 +132,7 @@ Persists database using localStorage or filesystem. If no destination is specifi
 
 ```javascript
 _.save(db);
+_.save(db, '/some/path/db.json');
 ```
 
 ### load
@@ -141,6 +143,7 @@ Loads database from localStorage or filesystem. If no source is specified it wil
 
 ```javascript
 var db = _.load();
+var db = _.load('/some/path/db.json');
 ```
 
 ### id
