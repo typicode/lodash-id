@@ -12,24 +12,28 @@ Data can be persisted using the filesystem or localStorage.
 
 You can try it online [here](http://typicode.github.io/underscore.db/).
 
-## Example
+## Usage
 
 ```javascript
+// let's create an empty database object
 var db = {
   posts: []
 }
 
+// and create a post
 var newPost = _.insert(db.posts, {title: 'foo'});
 
-/* db object is now
-{ 
-  posts: [
-    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
-  ]
-}
+// db content is now
+/*  
+  { 
+    posts: [
+      {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
+    ]
+  }
 */
 
-var post    = _.get(db.posts, newPost.id);
+// now let's retrieve it using its id
+var post = _.get(db.posts, newPost.id);
 ```
 
 
