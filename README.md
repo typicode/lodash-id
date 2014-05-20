@@ -20,6 +20,15 @@ var db = {
 }
 
 var newPost = _.insert(db.posts, {title: 'foo'});
+
+/* db object is now
+{ 
+  posts: [
+    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
+  ]
+}
+*/
+
 var post    = _.get(db.posts, newPost.id);
 ```
 
