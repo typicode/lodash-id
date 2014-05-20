@@ -25,11 +25,11 @@ var newPost = _.insert(db.posts, {title: 'foo'});
 
 // db content is now
 /*  
-  { 
-    posts: [
-      {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
-    ]
-  }
+{ 
+  posts: [
+    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
+  ]
+}
 */
 
 // now let's retrieve it using its id
