@@ -34,6 +34,12 @@ var newPost = _.insert(db.posts, {title: 'foo'});
 
 // now let's retrieve it using its id
 var post = _.get(db.posts, newPost.id);
+
+// or query it using an underscore method
+var post = _.find(db.posts, {title: 'foo'});
+
+// finally let's save it
+_.save(db);
 ```
 
 
