@@ -4,13 +4,15 @@
 
 # Underscore.db
 
-__Adds functions to Underscore/Lo-Dash for manipulating database-like objects.__
+> Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
 
 It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId` and can be used in Node and the browser.
 
 Data can be persisted using the filesystem or localStorage.
 
 You can try it online [here](http://typicode.github.io/underscore.db/).
+
+__Note: If you need more, check [LowDB](https://github.com/typicode/lowdb).__
 
 ## Usage
 
