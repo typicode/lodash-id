@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/typicode/underscore.db.png)](https://travis-ci.org/typicode/underscore.db)
-[![NPM version](https://badge.fury.io/js/underscore.db.png)](http://badge.fury.io/js/underscore.db)
-[![Bower version](https://badge.fury.io/bo/underscore.db.png)](http://badge.fury.io/bo/underscore.db)
+[![Build Status](https://travis-ci.org/typicode/underscore.db.svg)](https://travis-ci.org/typicode/underscore.db)
+[![NPM version](https://badge.fury.io/js/underscore.db.svg)](http://badge.fury.io/js/underscore.db)
+[![Bower version](https://badge.fury.io/bo/underscore.db.svg)](http://badge.fury.io/bo/underscore.db)
 
 # Underscore.db
 
