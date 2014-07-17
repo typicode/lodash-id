@@ -6,7 +6,7 @@ It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save
 
 Data can be persisted using the filesystem or localStorage.
 
-You can try it online [here](http://typicode.github.io/underscore.db/).
+__[Live example](http://typicode.github.io/underscore.db/)__
 
 _For a full JSON database built on Lo-Dash and Underscore.db, check [LowDB](https://github.com/typicode/lowdb)._
 
