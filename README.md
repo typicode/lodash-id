@@ -8,7 +8,7 @@ Data can be persisted using the filesystem or localStorage.
 
 You can try it online [here](http://typicode.github.io/underscore.db/).
 
-_For a full JSON database, check [LowDB](https://github.com/typicode/lowdb)._
+_For a full JSON database built on Lo-Dash and Underscore.db, check [LowDB](https://github.com/typicode/lowdb)._
 
 ## Install
 
