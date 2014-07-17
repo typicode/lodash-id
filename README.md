@@ -1,8 +1,4 @@
-[![Build Status](https://travis-ci.org/typicode/underscore.db.svg)](https://travis-ci.org/typicode/underscore.db)
-[![NPM version](https://badge.fury.io/js/underscore.db.svg)](http://badge.fury.io/js/underscore.db)
-[![Bower version](https://badge.fury.io/bo/underscore.db.svg)](http://badge.fury.io/bo/underscore.db)
-
-# Underscore.db
+# Underscore.db [![Build Status](https://travis-ci.org/typicode/underscore.db.svg)](https://travis-ci.org/typicode/underscore.db) [![NPM version](https://badge.fury.io/js/underscore.db.svg)](http://badge.fury.io/js/underscore.db) [![Bower version](https://badge.fury.io/bo/underscore.db.svg)](http://badge.fury.io/bo/underscore.db)
 
 > Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
 
@@ -12,40 +8,7 @@ Data can be persisted using the filesystem or localStorage.
 
 You can try it online [here](http://typicode.github.io/underscore.db/).
 
-__Note: If you need more, check [LowDB](https://github.com/typicode/lowdb).__
-
-## Usage
-
-```javascript
-// let's create an empty database object
-var db = {
-  posts: []
-}
-
-// and create a post
-var newPost = _.insert(db.posts, {title: 'foo'});
-
-// db content is now
-/*  
-{ 
-  posts: [
-    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
-  ]
-}
-*/
-
-// now let's retrieve it using its id
-var post = _.get(db.posts, newPost.id);
-
-// or query it using an underscore method
-var post = _.find(db.posts, function(post) {
-  return post.title === 'foo'
-});
-
-// finally let's save it
-_.save(db);
-```
-
+_For a full JSON database, check [LowDB](https://github.com/typicode/lowdb)._
 
 ## Install
 
@@ -72,6 +35,48 @@ $ bower install underscore underscore.db
 ```
 
 To use Underscore.db with Lo-Dash, just replace `underscore` with `lodash`
+
+## Usage example
+
+Create an empty database object
+
+```javascript
+var db = {
+  posts: []
+}
+```
+
+Create a post
+
+```javascript
+var newPost = _.insert(db.posts, {title: 'foo'});
+```
+
+Display database `console.log(db)`
+
+```javascript
+{ 
+  posts: [
+    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
+  ]
+}
+```
+
+Retrieve post using underscore.db `get` or underscore `find` method
+
+```javascript
+var post = _.get(db.posts, newPost.id);
+
+var post = _.find(db.posts, function(post) {
+  return post.title === 'foo'
+});
+```
+
+Persist
+
+```javascript
+_.save(db);
+```
 
 ## API
 
