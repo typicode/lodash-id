@@ -2,7 +2,16 @@
 
 > Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
 
-It adds `get`, `insert`, `update`, `updateWhere`, `remove`, `removeWhere`, `save`, `load` and `createId` and can be used in Node and the browser.
+It adds:
+* `get`
+* `insert`
+* `update`
+* `updateWhere`
+* `remove`
+* `removeWhere`
+* `save`
+* `load`
+* `createId` 
 
 Data can be persisted using the filesystem or localStorage.
 
