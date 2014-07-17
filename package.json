@@ -1,6 +1,6 @@
 {
   "name": "underscore.db",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Use JavaScript objects as databases",
   "main": "src/node.js",
   "scripts": {
