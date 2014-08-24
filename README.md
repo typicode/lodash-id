@@ -104,8 +104,6 @@ var db = {
 }
 ```
 
-### get
-
 __get(collection, id)__
 
 Finds and returns document by id or undefined.
@@ -113,8 +111,6 @@ Finds and returns document by id or undefined.
 ```javascript
 var post = _.get(db.posts, 1);
 ```
-
-### insert
 
 __insert(collection, document)__
 
@@ -124,8 +120,6 @@ Adds document to collection, sets an id and returns created document.
 var post = _.insert(db.posts, {body: 'New post'});
 ```
 
-### update
-
 __update(collection, id, attrs)__
 
 Finds document by id, copies properties to it and returns updated document or undefined.
@@ -133,8 +127,6 @@ Finds document by id, copies properties to it and returns updated document or un
 ```javascript
 var post = _.update(db.posts, 1, {body: 'Updated body'});
 ```
-
-### updateWhere
 
 __updateWhere(collection, whereAttrs, attrs)__
 
@@ -145,8 +137,6 @@ Finds documents using `_.where`, updates documents and returns updated documents
 var posts = _.updateWhere(db.posts, {published: false}, {published: true});
 ```
 
-### remove
-
 __remove(collection, id)__
 
 Removes document from collection and returns it or undefined.
@@ -154,8 +144,6 @@ Removes document from collection and returns it or undefined.
 ```javascript
 var comment = _.remove(db.comments, 1);
 ```
-
-### removeWhere
 
 __removeWhere(collection, whereAttrs)__
 
@@ -165,9 +153,7 @@ Removes documents from collection using `_.where` and returns removed documents 
 var comments = _.removeWhere(db.comments, {postId: 1});
 ```
 
-### save
-
-save(db, [destination])
+__save(db, [destination])__
 
 Persists database using localStorage or filesystem. If no destination is specified it will save to `db` or `./db.json`.
 
@@ -176,9 +162,7 @@ _.save(db);
 _.save(db, '/some/path/db.json');
 ```
 
-### load
-
-load([source])
+__load([source])__
 
 Loads database from localStorage or filesystem. If no source is specified it will load from `db` or `./db.json`.
 
@@ -187,15 +171,13 @@ var db = _.load();
 var db = _.load('/some/path/db.json');
 ```
 
-### id
+__id__
 
 Overwrite it if you want to use another id property.
 
 ```javascript
 _.id = '_id';
 ```
-
-### createId
 
 __createId(collectionName, doc)__
 
