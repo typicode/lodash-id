@@ -17,7 +17,7 @@ Object.keys(libs).forEach(function(name) {
     var _ = libs[name];
 
     beforeEach(function() {
-      _db.mixWith(_);
+      _.mixin(_db);
       db = {
         posts: [
           {id: 1, body: 'one', published: true},
@@ -34,7 +34,7 @@ Object.keys(libs).forEach(function(name) {
 
     describe('id', function() {
       beforeEach(function() { _.id = 'body'; });
-      afterEach(function() { _.id = 'id'; });
+      afterEach(function() { delete _.id; });
 
       it('is the property used by get to find document', function() {
         var expect = db.posts[0],

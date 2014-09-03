@@ -28,8 +28,10 @@ $ npm install underscore underscore.db
 ```
 
 ```javascript
-var _ = require('underscore');
-require('underscore.db').mixWith(_);
+var _   = require('underscore');
+var _db = require('underscore.db');
+
+_.mixin(_db);
 ```
 
 __Browser__
