@@ -15,7 +15,7 @@ Object.keys(libs).forEach(function(name) {
 
     var db;
     var _ = libs[name];
-    
+
     beforeEach(function() {
       _db.mixWith(_);
       db = {

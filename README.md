@@ -11,7 +11,7 @@ It adds:
 * `removeWhere`
 * `save`
 * `load`
-* `createId` 
+* `createId`
 
 Data can be persisted using the filesystem or localStorage.
 
@@ -64,7 +64,7 @@ var newPost = _.insert(db.posts, {title: 'foo'});
 Display database `console.log(db)`
 
 ```javascript
-{ 
+{
   posts: [
     {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
   ]
@@ -89,7 +89,7 @@ _.save(db);
 
 ## API
 
-The following database object is used in API examples. 
+The following database object is used in API examples.
 
 ```javascript
 var db = {
@@ -205,7 +205,7 @@ var topFivePosts = _(db.posts)
   .chain()
   .where({published: true})
   .sortBy(function(post) {
-     return post.views;   
+     return post.views;
    })
   .first(5)
   .value();
@@ -220,7 +220,7 @@ var topFivePosts = _(db.posts)
 
 ### How to reduce file size?
 
-With Lo-Dash, you can create optimal builds and include just what you need. 
+With Lo-Dash, you can create optimal builds and include just what you need.
 
 Minimal build for Underscore.db to work (~2kb min gzipped):
 
