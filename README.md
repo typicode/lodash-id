@@ -233,6 +233,10 @@ $ lodash underscore include=find,where,clone,indexOf
 
 For more build options, see http://lodash.com/custom-builds.
 
+## Changelog
+
+See details changes for each version in the [release notes](https://github.com/typicode/underscore.db/releases).
+
 ## License
 
 Underscore.db is released under the MIT License.
