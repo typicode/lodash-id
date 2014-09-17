@@ -35,7 +35,11 @@ module.exports = {
   },
 
   insert: function(collection, doc) {
-    doc[this.__id()] = doc[this.__id()] || this.createId(collection, doc);
+    if (doc[this.__id()]) {
+      this.remove(collection, doc[this.__id()]);
+    } else {
+      doc[this.__id()] = this.createId(collection, doc);
+    }
 
     collection.push(doc);
 
