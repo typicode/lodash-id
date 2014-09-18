@@ -1,8 +1,8 @@
 {
-  "name": "underscore.db",
-  "main": "dist/underscore.db.js",
+  "name": "underscore-db",
+  "main": "dist/underscore-db.js",
   "version": "0.8.0",
-  "homepage": "https://github.com/typicode/underscore.db",
+  "homepage": "https://github.com/typicode/underscore-db",
   "authors": [
     "Typicode <typicode@gmail.com>"
   ],

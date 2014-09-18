@@ -1,5 +1,5 @@
 {
-  "name": "underscore.db",
+  "name": "underscore-db",
   "version": "0.8.0",
   "description": "Use JavaScript objects as databases",
   "main": "src/node.js",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typicode/underscore.db.git"
+    "url": "https://github.com/typicode/underscore-db.git"
   },
   "keywords": [
     "JavaScript",

@@ -1,4 +1,4 @@
-# Underscore.db [![Build Status](https://travis-ci.org/typicode/underscore.db.svg)](https://travis-ci.org/typicode/underscore.db) [![NPM version](https://badge.fury.io/js/underscore.db.svg)](http://badge.fury.io/js/underscore.db) [![Bower version](https://badge.fury.io/bo/underscore.db.svg)](http://badge.fury.io/bo/underscore.db)
+# Underscore-db [![Build Status](https://travis-ci.org/typicode/underscore-db.svg)](https://travis-ci.org/typicode/underscore-db) [![NPM version](https://badge.fury.io/js/underscore-db.svg)](http://badge.fury.io/js/underscore-db) [![Bower version](https://badge.fury.io/bo/underscore-db.svg)](http://badge.fury.io/bo/underscore-db)
 
 > Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
 
@@ -15,21 +15,21 @@ It adds:
 
 Data can be persisted using the filesystem or localStorage.
 
-__[Live example](http://typicode.github.io/underscore.db/)__
+__[Live example](http://typicode.github.io/underscore-db/)__
 
-_For a full JSON database built on Lo-Dash and Underscore.db, check [LowDB](https://github.com/typicode/lowdb)._
+_For a full JSON database built on Lo-Dash and Underscore-db, check [LowDB](https://github.com/typicode/lowdb)._
 
 ## Install
 
 __Node__
 
 ```bash
-$ npm install underscore underscore.db
+$ npm install underscore underscore-db
 ```
 
 ```javascript
 var _   = require('underscore');
-var _db = require('underscore.db');
+var _db = require('underscore-db');
 
 _.mixin(_db);
 ```
@@ -37,15 +37,15 @@ _.mixin(_db);
 __Browser__
 
 ```bash
-$ bower install underscore underscore.db
+$ bower install underscore underscore-db
 ```
 
 ```html
 <script src="underscore.js" type="text/javascript"></script>
-<script src="underscore.db.js" type="text/javascript"></script>
+<script src="underscore-db.js" type="text/javascript"></script>
 ```
 
-To use Underscore.db with Lo-Dash, just replace `underscore` with `lodash`
+To use Underscore-db with Lo-Dash, just replace `underscore` with `lodash`
 
 ## Usage example
 
@@ -73,7 +73,7 @@ Display database `console.log(db)`
 }
 ```
 
-Retrieve post using underscore.db `get` or underscore `find` method
+Retrieve post using underscore-db `get` or underscore `find` method
 
 ```javascript
 var post = _.get(db.posts, newPost.id);
@@ -191,7 +191,7 @@ _.id = '_id';
 
 __createId(collectionName, doc)__
 
-Called by Underscore.db when a document is inserted. Overwrite it if you want to change id generation algorithm.
+Called by Underscore-db when a document is inserted. Overwrite it if you want to change id generation algorithm.
 
 ```javascript
 _.createId = function(collectionName, doc) {
@@ -232,7 +232,7 @@ var topFivePosts = _(db.posts)
 
 With Lo-Dash, you can create optimal builds and include just what you need.
 
-Minimal build for Underscore.db to work (~2kb min gzipped):
+Minimal build for Underscore-db to work (~2kb min gzipped):
 
 ```bash
 $ npm install -g lodash-cli
@@ -243,8 +243,8 @@ For more build options, see http://lodash.com/custom-builds.
 
 ## Changelog
 
-See details changes for each version in the [release notes](https://github.com/typicode/underscore.db/releases).
+See details changes for each version in the [release notes](https://github.com/typicode/underscore-db/releases).
 
 ## License
 
-Underscore.db is released under the MIT License.
+Underscore-db is released under the MIT License.

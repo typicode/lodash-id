@@ -3,7 +3,7 @@ var assert = require('assert'),
     fs = require('fs'),
     _db = require('../src/node');
 
-// Test underscore.db against Undersocre and Lo-Dash
+// Test underscore-db against Undersocre and Lo-Dash
 var libs = {
   underscore: require('underscore'),
   lodash: require('lodash')
@@ -11,7 +11,7 @@ var libs = {
 
 Object.keys(libs).forEach(function(name) {
 
-  describe(name + ' + underscore.db', function() {
+  describe(name + ' + underscore-db', function() {
 
     var db;
     var _ = libs[name];
