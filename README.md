@@ -19,6 +19,8 @@ __[Live example](http://typicode.github.io/underscore-db/)__
 
 _For a full JSON database built on Lo-Dash and Underscore-db, check [LowDB](https://github.com/typicode/lowdb)._
 
+__9/18: Project has been renamed from underscore.db to underscore-db, sorry for any inconvenience caused_
+
 ## Install
 
 __Node__
