@@ -122,6 +122,14 @@ Adds document to collection, sets an id and returns created document.
 var post = _.insert(db.posts, {body: 'New post'});
 ```
 
+If the document has already an id, it will be used to insert or replace.
+
+```javascript
+_.insert(db.posts, {id: 1, body: 'New post'});
+_.insert(db.posts, {id: 1, title: 'New title'});
+_.get(db.posts, 1) // {id: 1, title: 'New title'}
+```
+
 __update(collection, id, attrs)__
 
 Finds document by id, copies properties to it and returns updated document or undefined.
