@@ -65,22 +65,26 @@ Object.keys(libs).forEach(function(name) {
     });
 
     describe('insert', function() {
-      describe('id is set', function() {
-        it('inserts or replaces and returns inserted doc', function() {
+      describe('and id is set', function() {
+        it('inserts and returns inserted doc', function() {
           var doc = _.insert(db.posts, {id: 'foo', body: 'one' });
 
           assert.equal(db.posts.length, 4);
           assert.deepEqual(doc, {id: 'foo', body: 'one' });
           assert.deepEqual(_.get(db.posts, doc.id), {id: 'foo', body: 'one' });
+        });
 
-          doc = _.insert(db.posts, {id: 'foo', title: 'one'});
-          assert.equal(db.posts.length, 4);
-          assert.deepEqual(doc, {id: 'foo', title: 'one' });
-          assert.deepEqual(_.get(db.posts, doc.id), {id: 'foo', title: 'one' });
+        it('replaces in place and returns inserted doc', function() {
+          var length = db.posts.length;
+          doc = _.insert(db.posts, {id: 2, title: 'one'});
+          assert.equal(db.posts.length, length);
+          assert.deepEqual(doc, {id: 2, title: 'one'});
+          assert.deepEqual(_.get(db.posts, doc.id), {id: 2, title: 'one'});
+          assert.deepEqual(_.pluck(db.posts, 'id'), [1, 2, 3]);
         });
       });
 
-      describe('id is not set', function() {
+      describe('and id is not set', function() {
         it('inserts, sets an id and returns inserted doc', function() {
           var doc = _.insert(db.posts, {body: 'one' });
 
@@ -189,4 +193,3 @@ Object.keys(libs).forEach(function(name) {
     });
   });
 });
-
