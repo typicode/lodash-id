@@ -17,7 +17,7 @@ Data can be persisted using the filesystem or localStorage.
 
 __[Live example](http://typicode.github.io/underscore-db/)__
 
-__Tip__ You can extend [LowDB](https://github.com/typicode/lowdb) with underscore-db._
+__Tip__ You can extend [LowDB](https://github.com/typicode/lowdb) with underscore-db.
 
 ## Install
 
@@ -45,7 +45,7 @@ $ bower install underscore underscore-db
 <script src="underscore-db.js" type="text/javascript"></script>
 ```
 
-To use Underscore-db with Lo-Dash, just replace `underscore` with `lodash`
+To use underscore-db with Lo-Dash, just replace `underscore` with `lodash`
 
 ## Usage example
 
@@ -191,7 +191,7 @@ _.id = '_id';
 
 __createId(collectionName, doc)__
 
-Called by Underscore-db when a document is inserted. Overwrite it if you want to change id generation algorithm.
+Called by underscore-db when a document is inserted. Overwrite it if you want to change id generation algorithm.
 
 ```javascript
 _.createId = function(collectionName, doc) {
@@ -232,7 +232,7 @@ var topFivePosts = _(db.posts)
 
 With Lo-Dash, you can create optimal builds and include just what you need.
 
-Minimal build for Underscore-db to work (~2kb min gzipped):
+Minimal build for underscore-db to work (~2kb min gzipped):
 
 ```bash
 $ npm install -g lodash-cli
@@ -247,4 +247,4 @@ See details changes for each version in the [release notes](https://github.com/t
 
 ## License
 
-Underscore-db is released under the MIT License.
+underscore-db is released under the MIT License.
