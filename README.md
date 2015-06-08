@@ -3,11 +3,11 @@
 > Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
 
 It adds:
-* `get`
+* `getById`
 * `insert`
-* `update`
+* `updateById`
 * `updateWhere`
-* `remove`
+* `removeById`
 * `removeWhere`
 * `save`
 * `load`
@@ -76,7 +76,7 @@ Display database `console.log(db)`
 Retrieve post using underscore-db `get` or underscore `find` method
 
 ```javascript
-var post = _.get(db.posts, newPost.id);
+var post = _.getById(db.posts, newPost.id);
 
 var post = _.find(db.posts, function(post) {
   return post.title === 'foo'
@@ -106,12 +106,12 @@ var db = {
 }
 ```
 
-__get(collection, id)__
+__getById(collection, id)__
 
 Finds and returns document by id or undefined.
 
 ```javascript
-var post = _.get(db.posts, 1);
+var post = _.getById(db.posts, 1);
 ```
 
 __insert(collection, document)__
@@ -127,15 +127,15 @@ If the document has already an id, it will be used to insert or replace.
 ```javascript
 _.insert(db.posts, {id: 1, body: 'New post'});
 _.insert(db.posts, {id: 1, title: 'New title'});
-_.get(db.posts, 1) // {id: 1, title: 'New title'}
+_.getById(db.posts, 1) // {id: 1, title: 'New title'}
 ```
 
-__update(collection, id, attrs)__
+__updateById(collection, id, attrs)__
 
 Finds document by id, copies properties to it and returns updated document or undefined.
 
 ```javascript
-var post = _.update(db.posts, 1, {body: 'Updated body'});
+var post = _.updateById(db.posts, 1, {body: 'Updated body'});
 ```
 
 __updateWhere(collection, whereAttrs, attrs)__
@@ -147,12 +147,12 @@ Finds documents using `_.where`, updates documents and returns updated documents
 var posts = _.updateWhere(db.posts, {published: false}, {published: true});
 ```
 
-__remove(collection, id)__
+__removeById(collection, id)__
 
 Removes document from collection and returns it or undefined.
 
 ```javascript
-var comment = _.remove(db.comments, 1);
+var comment = _.removeById(db.comments, 1);
 ```
 
 __removeWhere(collection, whereAttrs)__

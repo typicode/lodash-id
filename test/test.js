@@ -37,7 +37,7 @@ Object.keys(libs).forEach(function(name) {
 
       it('is the property used by get to find document', function() {
         var expect = db.posts[0],
-            doc =_.get(db.posts, 'one');
+            doc =_.getById(db.posts, 'one');
 
         assert.deepEqual(doc, expect);
       });
@@ -49,16 +49,16 @@ Object.keys(libs).forEach(function(name) {
       });
     });
 
-    describe('get', function() {
+    describe('getById', function() {
       it('returns doc by id', function() {
         var expect = db.posts[0],
-            doc = _.get(db.posts, 1);
+            doc = _.getById(db.posts, 1);
 
         assert.deepEqual(doc, expect);
       });
 
       it('returns undefined if doc is not found', function() {
-        var doc = _.get(db.posts, 9999);
+        var doc = _.getById(db.posts, 9999);
 
         assert.equal(doc, undefined);
       });
@@ -71,7 +71,7 @@ Object.keys(libs).forEach(function(name) {
 
           assert.equal(db.posts.length, 4);
           assert.deepEqual(doc, {id: 'foo', body: 'one' });
-          assert.deepEqual(_.get(db.posts, doc.id), {id: 'foo', body: 'one' });
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one' });
         });
 
         it('replaces in place and returns inserted doc', function() {
@@ -79,7 +79,7 @@ Object.keys(libs).forEach(function(name) {
           doc = _.insert(db.posts, {id: 2, title: 'one'});
           assert.equal(db.posts.length, length);
           assert.deepEqual(doc, {id: 2, title: 'one'});
-          assert.deepEqual(_.get(db.posts, doc.id), {id: 2, title: 'one'});
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'});
           assert.deepEqual(_.pluck(db.posts, 'id'), [1, 2, 3]);
         });
       });
@@ -95,16 +95,16 @@ Object.keys(libs).forEach(function(name) {
       });
     });
 
-    describe('update', function() {
+    describe('updateById', function() {
       it('updates doc and returns updated doc', function() {
-        var doc =_.update(db.posts, 1, {published: false});
+        var doc =_.updateById(db.posts, 1, {published: false});
 
         assert(!db.posts[0].published);
         assert(!doc.published);
       });
 
       it('returns undefined if doc is not found', function() {
-        var doc =_.update(db.posts, 9999, {published: false});
+        var doc =_.updateById(db.posts, 9999, {published: false});
 
         assert.equal(doc, undefined);
       });
@@ -127,17 +127,17 @@ Object.keys(libs).forEach(function(name) {
     });
 
 
-    describe('remove', function() {
+    describe('removeById', function() {
       it('removes and returns doc ', function() {
         var expected = db.posts[0],
-            doc = _.remove(db.posts, 1);
+            doc = _.removeById(db.posts, 1);
 
         assert.equal(db.posts.length, 2);
         assert.deepEqual(doc, expected);
       });
 
       it('returns undefined if doc is not found', function() {
-        var doc =_.remove(db.posts, 9999);
+        var doc =_.removeById(db.posts, 9999);
 
         assert.equal(doc, undefined);
       });

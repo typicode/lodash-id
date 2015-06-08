@@ -12,7 +12,7 @@ module.exports = {
     });
   },
 
-  // Copies properties from an docect to another
+  // Copies properties from an object to another
   __update: function(dest, src) {
     this.each(src, function(value, key) {
       dest[key] = value;
@@ -30,7 +30,7 @@ module.exports = {
     return id;
   },
 
-  get: function(collection, id) {
+  getById: function(collection, id) {
     var self = this;
     return this.find(collection, function(doc) {
       return doc[self.__id()] === id;
@@ -44,7 +44,7 @@ module.exports = {
   insert: function(collection, doc) {
     if (doc[this.__id()]) {
       // id is set
-      var d = this.get(collection, doc[this.__id()]);
+      var d = this.getById(collection, doc[this.__id()]);
       if (d) {
         // replace properties of existing object
         this.__empty(d);
@@ -62,8 +62,8 @@ module.exports = {
     return doc;
   },
 
-  update: function(collection, id, attrs) {
-    var doc = this.get(collection, id);
+  updateById: function(collection, id, attrs) {
+    var doc = this.getById(collection, id);
 
     if (doc) this.__update(doc, attrs);
 
@@ -81,8 +81,8 @@ module.exports = {
     return docs;
   },
 
-  remove: function(collection, id) {
-    var doc = this.get(collection, id);
+  removeById: function(collection, id) {
+    var doc = this.getById(collection, id);
 
     this.__remove(collection, doc);
 
