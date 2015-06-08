@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var index = require('./');
 
 index.save = function(db, destination) {
@@ -20,7 +20,14 @@ function uuid(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4
 /* jshint ignore:end */
 
 module.exports = {
-  // Copies properties from an docect to another
+  // Empties properties
+  __empty: function(doc) {
+    this.each(doc, function(value, key) {
+      delete doc[key];
+    });
+  },
+
+  // Copies properties from an object to another
   __update: function(dest, src) {
     this.each(src, function(value, key) {
       dest[key] = value;
@@ -38,7 +45,7 @@ module.exports = {
     return id;
   },
 
-  get: function(collection, id) {
+  getById: function(collection, id) {
     var self = this;
     return this.find(collection, function(doc) {
       return doc[self.__id()] === id;
@@ -51,18 +58,27 @@ module.exports = {
 
   insert: function(collection, doc) {
     if (doc[this.__id()]) {
-      this.remove(collection, doc[this.__id()]);
+      // id is set
+      var d = this.getById(collection, doc[this.__id()]);
+      if (d) {
+        // replace properties of existing object
+        this.__empty(d);
+        this.extend(d, doc);
+      } else {
+        // push new object
+        collection.push(doc);
+      }
     } else {
+      // create id and push new object
       doc[this.__id()] = this.createId(collection, doc);
+      collection.push(doc);
     }
-
-    collection.push(doc);
 
     return doc;
   },
 
-  update: function(collection, id, attrs) {
-    var doc = this.get(collection, id);
+  updateById: function(collection, id, attrs) {
+    var doc = this.getById(collection, id);
 
     if (doc) this.__update(doc, attrs);
 
@@ -80,8 +96,8 @@ module.exports = {
     return docs;
   },
 
-  remove: function(collection, id) {
-    var doc = this.get(collection, id);
+  removeById: function(collection, id) {
+    var doc = this.getById(collection, id);
 
     this.__remove(collection, doc);
 
@@ -100,4 +116,4 @@ module.exports = {
   }
 };
 
-},{}]},{},[1])
+},{}]},{},[1]);

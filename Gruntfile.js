@@ -11,8 +11,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= pkg.version %> */\n',
-        report: 'gzip'
+        banner: '/*! <%= pkg.name %> <%= pkg.version %> */\n'
       },
       dist: {
         files: {
