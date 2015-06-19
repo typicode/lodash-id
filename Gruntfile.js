@@ -4,6 +4,11 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     browserify: {
       dist: {
+        options: {
+          browserifyOptions: {
+            standalone: 'underscoreDB'
+          }
+        },
         files: {
           'dist/<%= pkg.name %>.js': 'src/browser.js'
         }

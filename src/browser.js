@@ -10,4 +10,4 @@ index.load = function(source) {
   return JSON.parse(localStorage.getItem(source));
 };
 
-_.mixin(index);
+module.exports = index;
