@@ -126,6 +126,20 @@ Object.keys(libs).forEach(function(name) {
       });
     });
 
+    describe('replaceById', function() {
+      it('replaces doc and returns it', function() {
+        var doc = _.replaceById(db.posts, 1, {foo: 'bar'});
+
+        assert.deepEqual(db.posts[0], {id: 1, foo: 'bar'});
+      });
+
+      it('returns undefined if doc is not found', function() {
+        var doc = _.replaceById(db.posts, 9999, {});
+
+        assert.equal(doc, undefined);
+      });
+    });
+
 
     describe('removeById', function() {
       it('removes and returns doc ', function() {

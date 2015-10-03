@@ -7,6 +7,7 @@ It adds:
 * `insert`
 * `updateById`
 * `updateWhere`
+* `replaceById`
 * `removeById`
 * `removeWhere`
 * `save`
@@ -147,6 +148,14 @@ Finds documents using `_.where`, updates documents and returns updated documents
 var posts = _.updateWhere(db.posts, {published: false}, {published: true});
 ```
 
+__replaceById(collection, id, attrs)__
+
+Finds document by id, replaces properties and returns document or undefined.
+
+```javascript
+var post = _.replaceById(db.posts, 1, {foo: 'bar'});
+```
+
 __removeById(collection, id)__
 
 Removes document from collection and returns it or undefined.
@@ -230,13 +239,13 @@ var topFivePosts = _(db.posts)
 
 ### How to reduce file size?
 
-With Lo-Dash, you can create optimal builds and include just what you need.
+With Lo-Dash, you can create custom builds and include just what you need.
 
 Minimal build for underscore-db to work (~2kb min gzipped):
 
 ```bash
 $ npm install -g lodash-cli
-$ lodash underscore include=find,where,clone,indexOf
+$ lodash underscore include=find,where,forEach,indexOf
 ```
 
 For more build options, see http://lodash.com/custom-builds.
