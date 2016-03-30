@@ -70,9 +70,9 @@ module.exports = {
     return doc;
   },
 
-  updateWhere: function(collection, whereAttrs, attrs) {
+  updateWhere: function(collection, predicate, attrs) {
     var self = this;
-    var docs = this.where(collection, whereAttrs);
+    var docs = this.filter(collection, predicate);
 
     docs.forEach(function(doc) {
       self.assign(doc, attrs, {id: doc.id});
@@ -100,9 +100,9 @@ module.exports = {
     return doc;
   },
 
-  removeWhere: function(collection, attrs) {
+  removeWhere: function(collection, predicate) {
     var self = this;
-    var docs = this.where(collection, attrs);
+    var docs = this.filter(collection, predicate);
 
     docs.forEach(function(doc) {
       self.__remove(collection, doc);

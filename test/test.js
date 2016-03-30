@@ -80,7 +80,7 @@ Object.keys(libs).forEach(function(name) {
           assert.equal(db.posts.length, length);
           assert.deepEqual(doc, {id: 2, title: 'one'});
           assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'});
-          assert.deepEqual(_.pluck(db.posts, 'id'), [1, 2, 3]);
+          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3]);
         });
       });
 

@@ -22,14 +22,14 @@ function uuid(a,b){for(b=a='';a++<36;b+=a*51&52?(a^15?8^Math.random()*(a^20?16:4
 module.exports = {
   // Empties properties
   __empty: function(doc) {
-    this.each(doc, function(value, key) {
+    this.forEach(doc, function(value, key) {
       delete doc[key];
     });
   },
 
   // Copies properties from an object to another
   __update: function(dest, src) {
-    this.each(src, function(value, key) {
+    this.forEach(src, function(value, key) {
       dest[key] = value;
     });
   },
@@ -63,7 +63,7 @@ module.exports = {
       if (d) {
         // replace properties of existing object
         this.__empty(d);
-        this.extend(d, doc);
+        this.assign(d, doc);
       } else {
         // push new object
         collection.push(doc);
@@ -80,20 +80,31 @@ module.exports = {
   updateById: function(collection, id, attrs) {
     var doc = this.getById(collection, id);
 
-    if (doc) this.__update(doc, attrs);
+    if (doc) this.assign(doc, attrs, {id: id});
 
     return doc;
   },
 
-  updateWhere: function(collection, whereAttrs, attrs) {
+  updateWhere: function(collection, predicate, attrs) {
     var self = this;
-    var docs = this.where(collection, whereAttrs);
+    var docs = this.filter(collection, predicate);
 
     docs.forEach(function(doc) {
-      self.__update(doc, attrs);
+      self.assign(doc, attrs, {id: doc.id});
     });
 
     return docs;
+  },
+
+  replaceById: function(collection, id, attrs) {
+    var doc = this.getById(collection, id);
+
+    if (doc) {
+      this.__empty(doc);
+      this.assign(doc, attrs, {id: id});
+    }
+
+    return doc;
   },
 
   removeById: function(collection, id) {
@@ -104,9 +115,9 @@ module.exports = {
     return doc;
   },
 
-  removeWhere: function(collection, attrs) {
+  removeWhere: function(collection, predicate) {
     var self = this;
-    var docs = this.where(collection, attrs);
+    var docs = this.filter(collection, predicate);
 
     docs.forEach(function(doc) {
       self.__remove(collection, doc);
