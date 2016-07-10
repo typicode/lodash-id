@@ -22,7 +22,8 @@ Object.keys(libs).forEach(function(name) {
         posts: [
           {id: 1, body: 'one', published: true},
           {id: 2, body: 'two', published: false},
-          {id: 3, body: 'three', published: false}
+          {id: 3, body: 'three', published: false},
+          {id: '4', body: 'four', published: false}
         ],
         comments: [
           {id: 1, body: 'foo', postId: 1},
@@ -62,6 +63,20 @@ Object.keys(libs).forEach(function(name) {
 
         assert.equal(doc, undefined);
       });
+
+      it('returns doc (with string id) by number id', function() {
+        var expect = db.posts[3],
+            doc = _.getById(db.posts, 4);
+
+        assert.deepEqual(doc, expect);
+      });
+
+      it('returns doc (with string id) by string id', function() {
+        var expect = db.posts[3],
+            doc = _.getById(db.posts, '4');
+
+        assert.deepEqual(doc, expect);
+      });
     });
 
     describe('insert', function() {
@@ -69,7 +84,7 @@ Object.keys(libs).forEach(function(name) {
         it('inserts and returns inserted doc', function() {
           var doc = _.insert(db.posts, {id: 'foo', body: 'one' });
 
-          assert.equal(db.posts.length, 4);
+          assert.equal(db.posts.length, 5);
           assert.deepEqual(doc, {id: 'foo', body: 'one' });
           assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one' });
         });
@@ -80,7 +95,7 @@ Object.keys(libs).forEach(function(name) {
           assert.equal(db.posts.length, length);
           assert.deepEqual(doc, {id: 2, title: 'one'});
           assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'});
-          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3]);
+          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3, '4']);
         });
       });
 
@@ -88,7 +103,7 @@ Object.keys(libs).forEach(function(name) {
         it('inserts, sets an id and returns inserted doc', function() {
           var doc = _.insert(db.posts, {body: 'one' });
 
-          assert.equal(db.posts.length, 4);
+          assert.equal(db.posts.length, 5);
           assert(doc.id);
           assert.equal(doc.body, 'one');
         });
@@ -114,7 +129,7 @@ Object.keys(libs).forEach(function(name) {
       it('updates docs and returns updated docs', function() {
         var docs =_.updateWhere(db.posts, {published: false}, {published: true});
 
-        assert.equal(docs.length, 2);
+        assert.equal(docs.length, 3);
         assert(db.posts[1].published);
         assert(db.posts[2].published);
       });
@@ -146,7 +161,7 @@ Object.keys(libs).forEach(function(name) {
         var expected = db.posts[0],
             doc = _.removeById(db.posts, 1);
 
-        assert.equal(db.posts.length, 2);
+        assert.equal(db.posts.length, 3);
         assert.deepEqual(doc, expected);
       });
 
