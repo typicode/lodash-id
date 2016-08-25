@@ -5,6 +5,7 @@
 It adds:
 * `getById`
 * `insert`
+* `upsert`
 * `updateById`
 * `updateWhere`
 * `replaceById`
@@ -123,12 +124,27 @@ Adds document to collection, sets an id and returns created document.
 var post = _.insert(db.posts, {body: 'New post'});
 ```
 
-If the document has already an id, it will be used to insert or replace.
+If the document already has an id, and it is the same as an existing document in the collection, an error is thrown.
 
 ```javascript
 _.insert(db.posts, {id: 1, body: 'New post'});
-_.insert(db.posts, {id: 1, title: 'New title'});
-_.getById(db.posts, 1) // {id: 1, title: 'New title'}
+_.insert(db.posts, {id: 1, title: 'New title'}); // Throws an error
+```
+
+__upsert(collection, document)__
+
+Adds document to collection, sets an id and returns created document.
+
+```javascript
+var post = _.upsert(db.posts, {body: 'New post'});
+```
+
+If the document already has an id, it will be used to insert or replace.
+
+```javascript
+_.upsert(db.posts, {id: 1, body: 'New post'});
+_.upsert(db.posts, {id: 1, title: 'New title'});
+_.getById(db.posts, 1); // {id: 1, title: 'New title'}
 ```
 
 __updateById(collection, id, attrs)__
