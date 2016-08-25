@@ -41,7 +41,7 @@ module.exports = {
     return uuid();
   },
 
-  insert: function(collection, doc) {
+  upsert: function(collection, doc) {
     if (doc[this.__id()]) {
       // id is set
       var d = this.getById(collection, doc[this.__id()]);
