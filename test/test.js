@@ -67,16 +67,50 @@ Object.keys(libs).forEach(function(name) {
     describe('insert', function() {
       describe('and id is set', function() {
         it('inserts and returns inserted doc', function() {
-          var doc = _.insert(db.posts, {id: 'foo', body: 'one' });
+          var doc = _.insert(db.posts, {id: 'foo', body: 'one'});
+
+          assert.equal(db.posts.length, 4);
+          assert.deepEqual(doc, {id: 'foo', body: 'one'});
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'});
+        });
+
+        it('does not replace in place and throws an error', function() {
+          var length = db.posts.length;
+
+          assert.throws(function() {
+            _.insert(db.posts, {id: 2, title: 'one'});
+          }, /duplicate/);
+          assert.equal(db.posts.length, length);
+          assert.deepEqual(_.getById(db.posts, 2), {id: 2, body: 'two', published: false});
+          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3]);
+        });
+      });
+
+      describe('and id is not set', function() {
+        it('inserts, sets an id and returns inserted doc', function() {
+          var doc = _.insert(db.posts, {body: 'one'});
+
+          assert.equal(db.posts.length, 4);
+          assert(doc.id);
+          assert.equal(doc.body, 'one');
+        });
+      });
+    });
+
+    describe('upsert', function() {
+      describe('and id is set', function() {
+        it('inserts and returns inserted doc', function() {
+          var doc = _.upsert(db.posts, {id: 'foo', body: 'one'});
 
           assert.equal(db.posts.length, 4);
           assert.deepEqual(doc, {id: 'foo', body: 'one' });
-          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one' });
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'});
         });
 
         it('replaces in place and returns inserted doc', function() {
-          var length = db.posts.length;
-          doc = _.insert(db.posts, {id: 2, title: 'one'});
+          var length = db.posts.length,
+              doc = _.upsert(db.posts, {id: 2, title: 'one'});
+
           assert.equal(db.posts.length, length);
           assert.deepEqual(doc, {id: 2, title: 'one'});
           assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'});
@@ -86,7 +120,7 @@ Object.keys(libs).forEach(function(name) {
 
       describe('and id is not set', function() {
         it('inserts, sets an id and returns inserted doc', function() {
-          var doc = _.insert(db.posts, {body: 'one' });
+          var doc = _.upsert(db.posts, {body: 'one'});
 
           assert.equal(db.posts.length, 4);
           assert(doc.id);

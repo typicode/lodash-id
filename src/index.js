@@ -42,6 +42,14 @@ module.exports = {
   },
 
   insert: function(collection, doc) {
+    doc[this.__id()] = doc[this.__id()] || this.createId(collection, doc);
+    var d = this.getById(collection, doc[this.__id()]);
+    if (d) throw new Error("Insert failed; duplicate id.");
+    collection.push(doc);
+    return doc;
+  },
+
+  upsert: function(collection, doc) {
     if (doc[this.__id()]) {
       // id is set
       var d = this.getById(collection, doc[this.__id()]);
