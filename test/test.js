@@ -27,6 +27,10 @@ Object.keys(libs).forEach(function(name) {
         comments: [
           {id: 1, body: 'foo', postId: 1},
           {id: 2, body: 'bar', postId: 2}
+        ],
+        authors: [
+          {id: '1', name: 'foo'},
+          {id: '2', name: 'bar'}
         ]
       };
     });
@@ -53,6 +57,20 @@ Object.keys(libs).forEach(function(name) {
       it('returns doc by id', function() {
         var expect = db.posts[0],
             doc = _.getById(db.posts, 1);
+
+        assert.deepEqual(doc, expect);
+      });
+
+      it('returns doc by id with string param', function() {
+        var expect = db.posts[0],
+            doc = _.getById(db.posts, '1');
+
+        assert.deepEqual(doc, expect);
+      });
+
+      it('returns doc by id with string id', function() {
+        var expect = db.authors[0],
+            doc = _.getById(db.authors, 1);
 
         assert.deepEqual(doc, expect);
       });
