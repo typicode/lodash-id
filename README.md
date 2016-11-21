@@ -1,6 +1,6 @@
 # underscore-db [![Build Status](https://travis-ci.org/typicode/underscore-db.svg)](https://travis-ci.org/typicode/underscore-db) [![NPM version](https://badge.fury.io/js/underscore-db.svg)](http://badge.fury.io/js/underscore-db)
 
-> Adds functions to Underscore/Lo-Dash for manipulating database-like objects.
+> Adds functions to Underscore/Lodash for manipulating database-like objects.
 
 It adds:
 * `getById`
@@ -19,35 +19,25 @@ Data can be persisted using the filesystem or localStorage.
 
 __[Live example](http://typicode.github.io/underscore-db/)__
 
-__Tip__ You can extend [LowDB](https://github.com/typicode/lowdb) with underscore-db.
+__Tip__ You can extend [lowdb](https://github.com/typicode/lowdb) with underscore-db.
 
 ## Install
 
 __Node__
 
 ```bash
-$ npm install underscore underscore-db
+$ npm install lodash underscore-db
 ```
 
 ```javascript
-var _   = require('underscore');
+var _   = require('lodash');
 var _db = require('underscore-db');
 
 _.mixin(_db);
 ```
 
-__Browser__
+__Tip__ underscore-db is also compatible with underscore
 
-```bash
-$ bower install underscore underscore-db
-```
-
-```html
-<script src="underscore.js" type="text/javascript"></script>
-<script src="underscore-db.js" type="text/javascript"></script>
-```
-
-To use underscore-db with Lo-Dash, just replace `underscore` with `lodash`
 
 ## Usage example
 
@@ -228,9 +218,9 @@ _.createId = function(collectionName, doc) {
 
 ### How to query?
 
-Everything you need for querying is present in Underscore and Lo-Dash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
+Everything you need for querying is present in Underscore and Lodash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
 
-See http://underscorejs.org/ or http://lodash.com/docs.
+See http://lodash.com/docs or http://underscorejs.org.
 
 Example:
 
@@ -245,7 +235,7 @@ var topFivePosts = _(db.posts)
   .first(5)
   .value();
 
-// Using Lo-Dash
+// Using Lodash
 var topFivePosts = _(db.posts)
   .where({published: true})
   .sortBy('views')
@@ -255,13 +245,12 @@ var topFivePosts = _(db.posts)
 
 ### How to reduce file size?
 
-With Lo-Dash, you can create custom builds and include just what you need.
+With Lodash, you can create custom builds and include just what you need.
 
-Minimal build for underscore-db to work (~2kb min gzipped):
 
 ```bash
 $ npm install -g lodash-cli
-$ lodash underscore include=find,where,forEach,indexOf
+$ lodash include=find,forEach,indexOf,filter,has
 ```
 
 For more build options, see http://lodash.com/custom-builds.

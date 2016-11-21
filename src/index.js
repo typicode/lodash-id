@@ -33,7 +33,7 @@ module.exports = {
   getById: function(collection, id) {
     var self = this;
     return this.find(collection, function(doc) {
-      if (doc.hasOwnProperty(self.__id())) {
+      if (self.has(doc, self.__id())) {
         return doc[self.__id()].toString() === id.toString();
       }
     });
