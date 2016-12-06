@@ -155,6 +155,13 @@ Object.keys(libs).forEach(function(name) {
         assert(!doc.published);
       });
 
+      it('keeps initial id type', function() {
+        var doc =_.updateById(db.posts, '1', {published: false});
+
+        assert.strictEqual(doc.id, 1);
+      });
+
+
       it('returns undefined if doc is not found', function() {
         var doc =_.updateById(db.posts, 9999, {published: false});
 
@@ -183,6 +190,12 @@ Object.keys(libs).forEach(function(name) {
         var doc = _.replaceById(db.posts, 1, {foo: 'bar'});
 
         assert.deepEqual(db.posts[0], {id: 1, foo: 'bar'});
+      });
+
+      it('keeps initial id type', function() {
+        var doc =_.replaceById(db.posts, '1', {published: false});
+
+        assert.strictEqual(doc.id, 1);
       });
 
       it('returns undefined if doc is not found', function() {
