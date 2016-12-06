@@ -90,7 +90,9 @@ module.exports = {
   updateById: function(collection, id, attrs) {
     var doc = this.getById(collection, id);
 
-    if (doc) this.assign(doc, attrs, {id: id});
+    if (doc) {
+      this.assign(doc, attrs, {id: doc.id});
+    }
 
     return doc;
   },
@@ -110,8 +112,9 @@ module.exports = {
     var doc = this.getById(collection, id);
 
     if (doc) {
+      var docId = doc.id;
       this.__empty(doc);
-      this.assign(doc, attrs, {id: id});
+      this.assign(doc, attrs, {id: docId});
     }
 
     return doc;
