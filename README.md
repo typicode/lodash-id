@@ -237,9 +237,9 @@ var topFivePosts = _(db.posts)
 
 // Using Lodash
 var topFivePosts = _(db.posts)
-  .where({published: true})
+  .filter({published: true})
   .sortBy('views')
-  .first(5)
+  .take(5)
   .value();
 ```
 
