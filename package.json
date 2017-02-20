@@ -35,6 +35,9 @@
     "standard": "^8.6.0",
     "underscore": "^1.8.3"
   },
+  "engines": {
+    "node": ">= 4"
+  },
   "standard": {
     "fix": true,
     "env": {
