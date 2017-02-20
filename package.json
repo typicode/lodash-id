@@ -5,6 +5,7 @@
   "main": "src/node.js",
   "scripts": {
     "test": "mocha --use_strict",
+    "lint": "standard",
     "build": "grunt",
     "prepush": "npm test",
     "prepublish": "npm run build && pkg-ok"
@@ -33,6 +34,13 @@
     "mocha": "^3.2.0",
     "pkg-ok": "^1.0.1",
     "sinon": "~1.8.1",
+    "standard": "^8.6.0",
     "underscore": "^1.8.3"
+  },
+  "standard": {
+    "fix": true,
+    "env": {
+      "mocha": true
+    }
   }
 }

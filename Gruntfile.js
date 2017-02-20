@@ -1,5 +1,4 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     browserify: {
@@ -15,7 +14,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js'],
+          'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js']
         }
       }
     },
@@ -26,15 +25,14 @@ module.exports = function(grunt) {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint', 'mochaTest']
     }
-  });
+  })
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-browserify')
+  grunt.loadNpmTasks('grunt-contrib-jshint')
+  grunt.loadNpmTasks('grunt-contrib-watch')
 
-  grunt.registerTask('test', ['jshint']);
+  grunt.registerTask('test', ['jshint'])
 
-  grunt.registerTask('default', ['jshint', 'browserify', 'uglify']);
-
-};
+  grunt.registerTask('default', ['jshint', 'browserify', 'uglify'])
+}

@@ -1,23 +1,21 @@
-var assert = require('assert'),
-    sinon = require('sinon'),
-    fs = require('fs'),
-    _db = require('../src/node');
+var assert = require('assert')
+var sinon = require('sinon')
+var fs = require('fs')
+var _db = require('../src/node')
 
 // Test lodash-id against Undersocre and Lo-Dash
 var libs = {
   underscore: require('underscore'),
   lodash: require('lodash')
-};
+}
 
-Object.keys(libs).forEach(function(name) {
+Object.keys(libs).forEach(function (name) {
+  describe(name + ' + lodash-id', function () {
+    var db
+    var _ = libs[name]
 
-  describe(name + ' + lodash-id', function() {
-
-    var db;
-    var _ = libs[name];
-
-    beforeEach(function() {
-      _.mixin(_db);
+    beforeEach(function () {
+      _.mixin(_db)
       db = {
         posts: [
           {id: 1, body: 'one', published: true},
@@ -32,243 +30,241 @@ Object.keys(libs).forEach(function(name) {
           {id: '1', name: 'foo'},
           {id: '2', name: 'bar'}
         ]
-      };
-    });
+      }
+    })
 
-    describe('id', function() {
-      beforeEach(function() { _.id = 'body'; });
-      afterEach(function() { delete _.id; });
+    describe('id', function () {
+      beforeEach(function () { _.id = 'body' })
+      afterEach(function () { delete _.id })
 
-      it('is the property used by get to find document', function() {
+      it('is the property used by get to find document', function () {
+        var expect = db.posts[0]
+        var doc = _.getById(db.posts, 'one')
+
+        assert.deepEqual(doc, expect)
+      })
+    })
+
+    describe('createId', function () {
+      it('returns an id', function () {
+        assert(_.createId())
+      })
+    })
+
+    describe('getById', function () {
+      it('returns doc by id', function () {
+        var expect = db.posts[0]
+        var doc = _.getById(db.posts, 1)
+
+        assert.deepEqual(doc, expect)
+      })
+
+      it('returns doc by id with string param', function () {
         var expect = db.posts[0],
-            doc =_.getById(db.posts, 'one');
+        var doc = _.getById(db.posts, '1')
 
-        assert.deepEqual(doc, expect);
-      });
-    });
+        assert.deepEqual(doc, expect)
+      })
 
-    describe('createId', function() {
-      it('returns an id', function() {
-        assert(_.createId());
-      });
-    });
+      it('returns doc by id with string id', function () {
+        var expect = db.authors[0]
+        var doc = _.getById(db.authors, 1)
 
-    describe('getById', function() {
-      it('returns doc by id', function() {
-        var expect = db.posts[0],
-            doc = _.getById(db.posts, 1);
+        assert.deepEqual(doc, expect)
+      })
 
-        assert.deepEqual(doc, expect);
-      });
+      it('returns undefined if doc is not found', function () {
+        var doc = _.getById(db.posts, 9999)
 
-      it('returns doc by id with string param', function() {
-        var expect = db.posts[0],
-            doc = _.getById(db.posts, '1');
+        assert.equal(doc, undefined)
+      })
+    })
 
-        assert.deepEqual(doc, expect);
-      });
+    describe('insert', function () {
+      describe('and id is set', function () {
+        it('inserts and returns inserted doc', function () {
+          var doc = _.insert(db.posts, {id: 'foo', body: 'one'})
 
-      it('returns doc by id with string id', function() {
-        var expect = db.authors[0],
-            doc = _.getById(db.authors, 1);
+          assert.equal(db.posts.length, 4)
+          assert.deepEqual(doc, {id: 'foo', body: 'one'})
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'})
+        })
 
-        assert.deepEqual(doc, expect);
-      });
+        it('does not replace in place and throws an error', function () {
+          var length = db.posts.length
 
-      it('returns undefined if doc is not found', function() {
-        var doc = _.getById(db.posts, 9999);
+          assert.throws(function () {
+            _.insert(db.posts, {id: 2, title: 'one'})
+          }, /duplicate/)
+          assert.equal(db.posts.length, length)
+          assert.deepEqual(_.getById(db.posts, 2), {id: 2, body: 'two', published: false})
+          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3])
+        })
+      })
 
-        assert.equal(doc, undefined);
-      });
-    });
+      describe('and id is not set', function () {
+        it('inserts, sets an id and returns inserted doc', function () {
+          var doc = _.insert(db.posts, {body: 'one'})
 
-    describe('insert', function() {
-      describe('and id is set', function() {
-        it('inserts and returns inserted doc', function() {
-          var doc = _.insert(db.posts, {id: 'foo', body: 'one'});
+          assert.equal(db.posts.length, 4)
+          assert(doc.id)
+          assert.equal(doc.body, 'one')
+        })
+      })
+    })
 
-          assert.equal(db.posts.length, 4);
-          assert.deepEqual(doc, {id: 'foo', body: 'one'});
-          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'});
-        });
+    describe('upsert', function () {
+      describe('and id is set', function () {
+        it('inserts and returns inserted doc', function () {
+          var doc = _.upsert(db.posts, {id: 'foo', body: 'one'})
 
-        it('does not replace in place and throws an error', function() {
-          var length = db.posts.length;
+          assert.equal(db.posts.length, 4)
+          assert.deepEqual(doc, {id: 'foo', body: 'one' })
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'})
+        })
 
-          assert.throws(function() {
-            _.insert(db.posts, {id: 2, title: 'one'});
-          }, /duplicate/);
-          assert.equal(db.posts.length, length);
-          assert.deepEqual(_.getById(db.posts, 2), {id: 2, body: 'two', published: false});
-          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3]);
-        });
-      });
+        it('replaces in place and returns inserted doc', function () {
+          var length = db.posts.length
+          var doc = _.upsert(db.posts, {id: 2, title: 'one'})
 
-      describe('and id is not set', function() {
-        it('inserts, sets an id and returns inserted doc', function() {
-          var doc = _.insert(db.posts, {body: 'one'});
+          assert.equal(db.posts.length, length)
+          assert.deepEqual(doc, {id: 2, title: 'one'})
+          assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'})
+          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3])
+        })
+      })
 
-          assert.equal(db.posts.length, 4);
-          assert(doc.id);
-          assert.equal(doc.body, 'one');
-        });
-      });
-    });
+      describe('and id is not set', function () {
+        it('inserts, sets an id and returns inserted doc', function () {
+          var doc = _.upsert(db.posts, {body: 'one'})
 
-    describe('upsert', function() {
-      describe('and id is set', function() {
-        it('inserts and returns inserted doc', function() {
-          var doc = _.upsert(db.posts, {id: 'foo', body: 'one'});
+          assert.equal(db.posts.length, 4)
+          assert(doc.id)
+          assert.equal(doc.body, 'one')
+        })
+      })
+    })
 
-          assert.equal(db.posts.length, 4);
-          assert.deepEqual(doc, {id: 'foo', body: 'one' });
-          assert.deepEqual(_.getById(db.posts, doc.id), {id: 'foo', body: 'one'});
-        });
+    describe('updateById', function () {
+      it('updates doc and returns updated doc', function () {
+        var doc = _.updateById(db.posts, 1, {published: false})
 
-        it('replaces in place and returns inserted doc', function() {
-          var length = db.posts.length,
-              doc = _.upsert(db.posts, {id: 2, title: 'one'});
+        assert(!db.posts[0].published)
+        assert(!doc.published)
+      })
 
-          assert.equal(db.posts.length, length);
-          assert.deepEqual(doc, {id: 2, title: 'one'});
-          assert.deepEqual(_.getById(db.posts, doc.id), {id: 2, title: 'one'});
-          assert.deepEqual(_.map(db.posts, 'id'), [1, 2, 3]);
-        });
-      });
+      it('keeps initial id type', function () {
+        var doc = _.updateById(db.posts, '1', {published: false})
 
-      describe('and id is not set', function() {
-        it('inserts, sets an id and returns inserted doc', function() {
-          var doc = _.upsert(db.posts, {body: 'one'});
+        assert.strictEqual(doc.id, 1)
+      })
 
-          assert.equal(db.posts.length, 4);
-          assert(doc.id);
-          assert.equal(doc.body, 'one');
-        });
-      });
-    });
+      it('returns undefined if doc is not found', function () {
+        var doc = _.updateById(db.posts, 9999, {published: false})
 
-    describe('updateById', function() {
-      it('updates doc and returns updated doc', function() {
-        var doc =_.updateById(db.posts, 1, {published: false});
+        assert.equal(doc, undefined)
+      })
+    })
 
-        assert(!db.posts[0].published);
-        assert(!doc.published);
-      });
+    describe('updateWhere', function () {
+      it('updates docs and returns updated docs', function () {
+        var docs = _.updateWhere(db.posts, {published: false}, {published: true})
 
-      it('keeps initial id type', function() {
-        var doc =_.updateById(db.posts, '1', {published: false});
+        assert.equal(docs.length, 2)
+        assert(db.posts[1].published)
+        assert(db.posts[2].published)
+      })
 
-        assert.strictEqual(doc.id, 1);
-      });
+      it('returns an empty array if no docs match', function () {
+        var docs = _.updateWhere(db.posts, {published: 'draft'}, {published: true})
 
+        assert.equal(docs.length, 0)
+      })
+    })
 
-      it('returns undefined if doc is not found', function() {
-        var doc =_.updateById(db.posts, 9999, {published: false});
+    describe('replaceById', function () {
+      it('replaces doc and returns it', function () {
+        var doc = _.replaceById(db.posts, 1, {foo: 'bar'})
 
-        assert.equal(doc, undefined);
-      });
-    });
+        assert.deepEqual(db.posts[0], {id: 1, foo: 'bar'})
+      })
 
-    describe('updateWhere', function() {
-      it('updates docs and returns updated docs', function() {
-        var docs =_.updateWhere(db.posts, {published: false}, {published: true});
+      it('keeps initial id type', function () {
+        var doc = _.replaceById(db.posts, '1', {published: false})
 
-        assert.equal(docs.length, 2);
-        assert(db.posts[1].published);
-        assert(db.posts[2].published);
-      });
+        assert.strictEqual(doc.id, 1)
+      })
 
-      it('returns an empty array if no docs match', function() {
-        var docs =_.updateWhere(db.posts, {published: 'draft'}, {published: true});
+      it('returns undefined if doc is not found', function () {
+        var doc = _.replaceById(db.posts, 9999, {})
 
-        assert.equal(docs.length, 0);
-      });
-    });
+        assert.equal(doc, undefined)
+      })
+    })
 
-    describe('replaceById', function() {
-      it('replaces doc and returns it', function() {
-        var doc = _.replaceById(db.posts, 1, {foo: 'bar'});
+    describe('removeById', function () {
+      it('removes and returns doc ', function () {
+        var expected = db.posts[0]
+        var doc = _.removeById(db.posts, 1)
 
-        assert.deepEqual(db.posts[0], {id: 1, foo: 'bar'});
-      });
+        assert.equal(db.posts.length, 2)
+        assert.deepEqual(doc, expected)
+      })
 
-      it('keeps initial id type', function() {
-        var doc =_.replaceById(db.posts, '1', {published: false});
+      it('returns undefined if doc is not found', function () {
+        var doc = _.removeById(db.posts, 9999)
 
-        assert.strictEqual(doc.id, 1);
-      });
+        assert.equal(doc, undefined)
+      })
+    })
 
-      it('returns undefined if doc is not found', function() {
-        var doc = _.replaceById(db.posts, 9999, {});
+    describe('removeWhere', function () {
+      it('removes docs', function () {
+        var expected = [db.comments[0]]
+        var docs = _.removeWhere(db.comments, {postId: 1})
 
-        assert.equal(doc, undefined);
-      });
-    });
+        assert.equal(db.comments.length, 1)
+        assert.deepEqual(docs, expected)
+      })
 
+      it('returns an empty array if no docs match', function () {
+        var docs = _.removeWhere(db.comments, {postId: 9999})
 
-    describe('removeById', function() {
-      it('removes and returns doc ', function() {
-        var expected = db.posts[0],
-            doc = _.removeById(db.posts, 1);
+        assert.equal(docs.length, 0)
+      })
+    })
 
-        assert.equal(db.posts.length, 2);
-        assert.deepEqual(doc, expected);
-      });
-
-      it('returns undefined if doc is not found', function() {
-        var doc =_.removeById(db.posts, 9999);
-
-        assert.equal(doc, undefined);
-      });
-    });
-
-    describe('removeWhere', function() {
-      it('removes docs', function() {
-        var expected = [db.comments[0]],
-            docs = _.removeWhere(db.comments, {postId: 1});
-
-        assert.equal(db.comments.length, 1);
-        assert.deepEqual(docs, expected);
-      });
-
-      it('returns an empty array if no docs match', function() {
-        var docs = _.removeWhere(db.comments, {postId: 9999});
-
-        assert.equal(docs.length, 0);
-      });
-    });
-
-    describe('save and load', function() {
-      function clean() {
-        ['db.json', 'mydb.json'].forEach(function(path) {
-          if (fs.existsSync(path)) fs.unlinkSync(path);
-        });
+    describe('save and load', function () {
+      function clean () {
+        ['db.json', 'mydb.json'].forEach(function (path) {
+          if (fs.existsSync(path)) fs.unlinkSync(path)
+        })
       }
 
-      beforeEach(clean);
-      afterEach(clean);
+      beforeEach(clean)
+      afterEach(clean)
 
-      describe('with no options', function() {
-        it('saves and loads database using defaults', function() {
-          var actual;
+      describe('with no options', function () {
+        it('saves and loads database using defaults', function () {
+          var actual
 
-          _.save(db);
-          actual = _.load();
+          _.save(db)
+          actual = _.load()
 
-          assert.deepEqual(actual, db);
-        });
-      });
+          assert.deepEqual(actual, db)
+        })
+      })
 
-      describe('with options', function() {
-        it('saves and loads database using options', function() {
-          var actual;
+      describe('with options', function () {
+        it('saves and loads database using options', function () {
+          var actual
 
-          _.save(db, 'mydb.json');
-          actual = _.load('mydb.json');
+          _.save(db, 'mydb.json')
+          actual = _.load('mydb.json')
 
-          assert.deepEqual(actual, db);
-        });
-      });
-    });
-  });
-});
+          assert.deepEqual(actual, db)
+        })
+      })
+    })
+  })
+})
