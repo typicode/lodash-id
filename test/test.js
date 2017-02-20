@@ -60,7 +60,7 @@ Object.keys(libs).forEach(function (name) {
       })
 
       it('returns doc by id with string param', function () {
-        var expect = db.posts[0],
+        var expect = db.posts[0]
         var doc = _.getById(db.posts, '1')
 
         assert.deepEqual(doc, expect)
