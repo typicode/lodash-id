@@ -1,8 +1,7 @@
-# underscore-db [![Build Status](https://travis-ci.org/typicode/underscore-db.svg)](https://travis-ci.org/typicode/underscore-db) [![NPM version](https://badge.fury.io/js/underscore-db.svg)](http://badge.fury.io/js/underscore-db)
+# lodash-id [![Build Status](https://travis-ci.org/typicode/lodash-id.svg)](https://travis-ci.org/typicode/lodash-id) [![NPM version](https://badge.fury.io/js/lodash-id.svg)](http://badge.fury.io/js/lodash-id)
 
-> Adds functions to Underscore/Lodash for manipulating database-like objects.
+> Add functions to Lodash for manipulating id-based objects.
 
-It adds:
 * `getById`
 * `insert`
 * `upsert`
@@ -15,28 +14,24 @@ It adds:
 * `load`
 * `createId`
 
-Data can be persisted using the filesystem or localStorage.
-
-__[Live example](http://typicode.github.io/underscore-db/)__
-
-__Tip__ You can extend [lowdb](https://github.com/typicode/lowdb) with underscore-db.
+`lodash-id` can be used to extend [lowdb](https://github.com/typicode/lowdb)
 
 ## Install
 
 __Node__
 
 ```bash
-$ npm install lodash underscore-db
+$ npm install lodash lodash-id
 ```
 
 ```javascript
 var _   = require('lodash');
-var _db = require('underscore-db');
+var _db = require('lodash-id');
 
 _.mixin(_db);
 ```
 
-__Tip__ underscore-db is also compatible with underscore
+__Tip__ lodash-id is also compatible with underscore
 
 
 ## Usage example
@@ -65,7 +60,7 @@ Display database `console.log(db)`
 }
 ```
 
-Retrieve post using underscore-db `get` or underscore `find` method
+Retrieve post using lodash-id `get` or underscore `find` method
 
 ```javascript
 var post = _.getById(db.posts, newPost.id);
@@ -206,7 +201,7 @@ _.id = '_id';
 
 __createId(collectionName, doc)__
 
-Called by underscore-db when a document is inserted. Overwrite it if you want to change id generation algorithm.
+Called by lodash-id when a document is inserted. Overwrite it if you want to change id generation algorithm.
 
 ```javascript
 _.createId = function(collectionName, doc) {
@@ -218,9 +213,9 @@ _.createId = function(collectionName, doc) {
 
 ### How to query?
 
-Everything you need for querying is present in Underscore and Lodash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
+Everything you need for querying is present in lodash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
 
-See http://lodash.com/docs or http://underscorejs.org.
+See http://lodash.com/docs
 
 Example:
 
@@ -257,8 +252,8 @@ For more build options, see http://lodash.com/custom-builds.
 
 ## Changelog
 
-See details changes for each version in the [release notes](https://github.com/typicode/underscore-db/releases).
+See details changes for each version in the [release notes](https://github.com/typicode/lodash-id/releases).
 
 ## License
 
-underscore-db is released under the MIT License.
+lodash-id is released under the MIT License.
