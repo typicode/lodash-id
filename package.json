@@ -4,7 +4,7 @@
   "description": "Use JavaScript objects as databases",
   "main": "src/node.js",
   "scripts": {
-    "test": "grunt test",
+    "test": "mocha --use_strict",
     "build": "grunt",
     "prepush": "npm test",
     "prepublish": "npm run build && pkg-ok"
@@ -28,9 +28,9 @@
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-mocha-test": "~0.7.0",
     "husky": "^0.11.8",
     "lodash": "^4.6.1",
+    "mocha": "^3.2.0",
     "pkg-ok": "^1.0.1",
     "sinon": "~1.8.1",
     "underscore": "^1.8.3"
