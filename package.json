@@ -4,7 +4,7 @@
   "description": "Use JavaScript objects as databases",
   "main": "src/node.js",
   "scripts": {
-    "test": "mocha --use_strict",
+    "test": "mocha",
     "lint": "standard",
     "build": "grunt",
     "prepush": "npm test",
