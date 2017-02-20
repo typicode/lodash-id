@@ -1,6 +1,6 @@
 # lodash-id [![Build Status](https://travis-ci.org/typicode/lodash-id.svg)](https://travis-ci.org/typicode/lodash-id) [![NPM version](https://badge.fury.io/js/lodash-id.svg)](http://badge.fury.io/js/lodash-id)
 
-> Add functions to Lodash for manipulating id-based objects.
+> `lodash-id` makes it easy to manipulate id-based resources with [lodash](https://lodash.com/) or [lowdb](https://github.com/typicode/lowdb)
 
 * `getById`
 * `insert`
@@ -14,7 +14,6 @@
 * `load`
 * `createId`
 
-`lodash-id` can be used to extend [lowdb](https://github.com/typicode/lowdb)
 
 ## Install
 
@@ -24,35 +23,34 @@ __Node__
 $ npm install lodash lodash-id
 ```
 
-```javascript
-var _   = require('lodash');
-var _db = require('lodash-id');
-
-_.mixin(_db);
-```
-
-__Tip__ lodash-id is also compatible with underscore
+__Note__ lodash-id is also compatible with [underscore](http://underscorejs.org/)
 
 
 ## Usage example
 
+```js
+const _  = require('lodash')
+
+_.mixin(require('lodash-id'))
+```
+
 Create an empty database object
 
-```javascript
-var db = {
+```js
+const db = {
   posts: []
 }
 ```
 
 Create a post
 
-```javascript
-var newPost = _.insert(db.posts, {title: 'foo'});
+```js
+const newPost = _.insert(db.posts, {title: 'foo'})
 ```
 
 Display database `console.log(db)`
 
-```javascript
+```js
 {
   posts: [
     {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
@@ -62,26 +60,26 @@ Display database `console.log(db)`
 
 Retrieve post using lodash-id `get` or underscore `find` method
 
-```javascript
-var post = _.getById(db.posts, newPost.id);
+```js
+const post = _.getById(db.posts, newPost.id)
 
-var post = _.find(db.posts, function(post) {
+const post = _.find(db.posts, function(post) {
   return post.title === 'foo'
-});
+})
 ```
 
 Persist
 
-```javascript
-_.save(db);
+```js
+_.save(db)
 ```
 
 ## API
 
 The following database object is used in API examples.
 
-```javascript
-var db = {
+```js
+const db = {
   posts: [
     {id: 1, body: 'one', published: false},
     {id: 2, body: 'two', published: true}
@@ -97,146 +95,119 @@ __getById(collection, id)__
 
 Finds and returns document by id or undefined.
 
-```javascript
-var post = _.getById(db.posts, 1);
+```js
+const post = _.getById(db.posts, 1)
 ```
 
 __insert(collection, document)__
 
 Adds document to collection, sets an id and returns created document.
 
-```javascript
-var post = _.insert(db.posts, {body: 'New post'});
+```js
+const post = _.insert(db.posts, {body: 'New post'})
 ```
 
 If the document already has an id, and it is the same as an existing document in the collection, an error is thrown.
 
-```javascript
-_.insert(db.posts, {id: 1, body: 'New post'});
-_.insert(db.posts, {id: 1, title: 'New title'}); // Throws an error
+```js
+_.insert(db.posts, {id: 1, body: 'New post'})
+_.insert(db.posts, {id: 1, title: 'New title'}) // Throws an error
 ```
 
 __upsert(collection, document)__
 
 Adds document to collection, sets an id and returns created document.
 
-```javascript
-var post = _.upsert(db.posts, {body: 'New post'});
+```js
+const post = _.upsert(db.posts, {body: 'New post'})
 ```
 
 If the document already has an id, it will be used to insert or replace.
 
-```javascript
-_.upsert(db.posts, {id: 1, body: 'New post'});
-_.upsert(db.posts, {id: 1, title: 'New title'});
-_.getById(db.posts, 1); // {id: 1, title: 'New title'}
+```js
+_.upsert(db.posts, {id: 1, body: 'New post'})
+_.upsert(db.posts, {id: 1, title: 'New title'})
+_.getById(db.posts, 1) // {id: 1, title: 'New title'}
 ```
 
 __updateById(collection, id, attrs)__
 
 Finds document by id, copies properties to it and returns updated document or undefined.
 
-```javascript
-var post = _.updateById(db.posts, 1, {body: 'Updated body'});
+```js
+const post = _.updateById(db.posts, 1, {body: 'Updated body'})
 ```
 
 __updateWhere(collection, whereAttrs, attrs)__
 
 Finds documents using `_.where`, updates documents and returns updated documents or an empty array.
 
-```javascript
+```js
 // Publish all unpublished posts
-var posts = _.updateWhere(db.posts, {published: false}, {published: true});
+const posts = _.updateWhere(db.posts, {published: false}, {published: true})
 ```
 
 __replaceById(collection, id, attrs)__
 
 Finds document by id, replaces properties and returns document or undefined.
 
-```javascript
-var post = _.replaceById(db.posts, 1, {foo: 'bar'});
+```js
+const post = _.replaceById(db.posts, 1, {foo: 'bar'})
 ```
 
 __removeById(collection, id)__
 
 Removes document from collection and returns it or undefined.
 
-```javascript
-var comment = _.removeById(db.comments, 1);
+```js
+const comment = _.removeById(db.comments, 1)
 ```
 
 __removeWhere(collection, whereAttrs)__
 
 Removes documents from collection using `_.where` and returns removed documents or an empty array.
 
-```javascript
-var comments = _.removeWhere(db.comments, {postId: 1});
+```js
+const comments = _.removeWhere(db.comments, {postId: 1})
 ```
 
 __save(db, [destination])__
 
 Persists database using localStorage or filesystem. If no destination is specified it will save to `db` or `./db.json`.
 
-```javascript
-_.save(db);
-_.save(db, '/some/path/db.json');
+```js
+_.save(db)
+_.save(db, '/some/path/db.json')
 ```
 
 __load([source])__
 
 Loads database from localStorage or filesystem. If no source is specified it will load from `db` or `./db.json`.
 
-```javascript
-var db = _.load();
-var db = _.load('/some/path/db.json');
+```js
+const db = _.load()
+const db = _.load('/some/path/db.json')
 ```
 
 __id__
 
 Overwrite it if you want to use another id property.
 
-```javascript
-_.id = '_id';
+```js
+_.id = '_id'
 ```
 
 __createId(collectionName, doc)__
 
 Called by lodash-id when a document is inserted. Overwrite it if you want to change id generation algorithm.
 
-```javascript
+```js
 _.createId = function(collectionName, doc) {
-  return collectionName + '-' + doc.name + '-' + _.random(1, 9999);
+  return collectionName + '-' + doc.name + '-' + _.random(1, 9999)
 }
 ```
 
 ## FAQ
-
-### How to query?
-
-Everything you need for querying is present in lodash: `where`, ```find```, ```map```, ```reduce```, ```filter```, ```reject```, ```sortBy```, ```groupBy```, ```countBy```, ...
-
-See http://lodash.com/docs
-
-Example:
-
-```javascript
-// Using Underscore
-var topFivePosts = _(db.posts)
-  .chain()
-  .where({published: true})
-  .sortBy(function(post) {
-     return post.views;
-   })
-  .first(5)
-  .value();
-
-// Using Lodash
-var topFivePosts = _(db.posts)
-  .filter({published: true})
-  .sortBy('views')
-  .take(5)
-  .value();
-```
 
 ### How to reduce file size?
 
