@@ -1,5 +1,5 @@
 {
-  "name": "underscore-db",
+  "name": "lodash-id",
   "version": "0.12.2",
   "description": "Use JavaScript objects as databases",
   "main": "src/node.js",
@@ -7,25 +7,19 @@
     "test": "grunt test",
     "build": "grunt",
     "prepush": "npm test",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && pkg-ok"
   },
   "author": "Typicode <typicode@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typicode/underscore-db.git"
+    "url": "https://github.com/typicode/lodash-id.git"
   },
   "keywords": [
-    "JavaScript",
-    "Underscore",
-    "Lo-Dash",
+    "underscore",
     "lodash",
-    "database",
-    "datastore",
-    "JSON",
-    "object",
-    "embed",
-    "embeddable"
+    "mixin",
+    "database"
   ],
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -37,6 +31,7 @@
     "grunt-mocha-test": "~0.7.0",
     "husky": "^0.11.8",
     "lodash": "^4.6.1",
+    "pkg-ok": "^1.0.1",
     "sinon": "~1.8.1",
     "underscore": "^1.8.3"
   }
