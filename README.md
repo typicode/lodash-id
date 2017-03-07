@@ -20,18 +20,21 @@
 __Node__
 
 ```bash
-$ npm install lodash lodash-id
+npm install lodash lodash-id --save
+# or
+npm install lowdb lodash-id --save
 ```
 
-__Note__ lodash-id is also compatible with [underscore](http://underscorejs.org/)
+__Note__ `lodash-id` is also compatible with [underscore](http://underscorejs.org/)
 
 
 ## Usage example
 
 ```js
 const _  = require('lodash')
+const lodashId = require('lodash-id')
 
-_.mixin(require('lodash-id'))
+_.mixin(lodashId)
 ```
 
 Create an empty database object
@@ -45,7 +48,7 @@ const db = {
 Create a post
 
 ```js
-const newPost = _.insert(db.posts, {title: 'foo'})
+const newPost = _.insert(db.posts, { title: 'foo' })
 ```
 
 Display database `console.log(db)`
@@ -53,7 +56,7 @@ Display database `console.log(db)`
 ```js
 {
   posts: [
-    {title: "foo", id: "5ca959c4-b5ab-4336-aa65-8a197b6dd9cb"}
+    { title: 'foo', id: '5ca959c4-b5ab-4336-aa65-8a197b6dd9cb }
   ]
 }
 ```
