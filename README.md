@@ -56,7 +56,7 @@ Display database `console.log(db)`
 ```js
 {
   posts: [
-    { title: 'foo', id: '5ca959c4-b5ab-4336-aa65-8a197b6dd9cb }
+    { title: 'foo', id: '5ca959c4-b5ab-4336-aa65-8a197b6dd9cb' }
   ]
 }
 ```
