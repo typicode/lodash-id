@@ -2,7 +2,7 @@
   "name": "lodash-id",
   "version": "0.13.0",
   "description": "Use JavaScript objects as databases",
-  "main": "src/node.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha",
     "lint": "standard",

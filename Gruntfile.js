@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/<%= pkg.name %>.js': 'src/browser.js'
+          'dist/<%= pkg.name %>.js': 'src/index.js'
         }
       }
     },

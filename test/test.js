@@ -1,7 +1,7 @@
 var assert = require('assert')
 var sinon = require('sinon')
 var fs = require('fs')
-var _db = require('../src/node')
+var _db = require('../src')
 
 // Test lodash-id against Undersocre and Lo-Dash
 var libs = {
@@ -231,39 +231,6 @@ Object.keys(libs).forEach(function (name) {
         var docs = _.removeWhere(db.comments, {postId: 9999})
 
         assert.equal(docs.length, 0)
-      })
-    })
-
-    describe('save and load', function () {
-      function clean () {
-        ['db.json', 'mydb.json'].forEach(function (path) {
-          if (fs.existsSync(path)) fs.unlinkSync(path)
-        })
-      }
-
-      beforeEach(clean)
-      afterEach(clean)
-
-      describe('with no options', function () {
-        it('saves and loads database using defaults', function () {
-          var actual
-
-          _.save(db)
-          actual = _.load()
-
-          assert.deepEqual(actual, db)
-        })
-      })
-
-      describe('with options', function () {
-        it('saves and loads database using options', function () {
-          var actual
-
-          _.save(db, 'mydb.json')
-          actual = _.load('mydb.json')
-
-          assert.deepEqual(actual, db)
-        })
       })
     })
   })
