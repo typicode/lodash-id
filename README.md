@@ -10,8 +10,6 @@
 * `replaceById`
 * `removeById`
 * `removeWhere`
-* `save`
-* `load`
 * `createId`
 
 
