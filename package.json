@@ -4,11 +4,9 @@
   "description": "Use JavaScript objects as databases",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
-    "lint": "standard",
-    "build": "grunt",
+    "test": "mocha && standard && pkg-ok",
     "prepush": "npm test",
-    "prepublish": "npm run build && pkg-ok"
+    "prepublish": "npm test"
   },
   "author": "Typicode <typicode@gmail.com>",
   "license": "MIT",
@@ -17,23 +15,22 @@
     "url": "https://github.com/typicode/lodash-id.git"
   },
   "keywords": [
-    "underscore",
     "lodash",
-    "mixin",
-    "database"
+    "lowdb",
+    "underscore",
+    "id",
+    "resource",
+    "mixin"
   ],
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-browserify": "^3.8.0",
-    "grunt-cli": "~0.1.11",
-    "grunt-contrib-uglify": "^0.9.1",
     "husky": "^0.11.8",
     "lodash": "^4.6.1",
     "mocha": "^3.2.0",
     "pkg-ok": "^1.0.1",
     "sinon": "~1.8.1",
     "standard": "^8.6.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^2.2.1"
   },
   "engines": {
     "node": ">= 4"

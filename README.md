@@ -12,7 +12,6 @@
 * `removeWhere`
 * `createId`
 
-
 ## Install
 
 ```bash
@@ -25,39 +24,9 @@ npm install lowdb lodash-id --save
 
 __Note__ `lodash-id` is also compatible with [underscore](http://underscorejs.org/)
 
-
-## Usage example
-
-```js
-const _  = require('lodash')
-const lodashId = require('lodash-id')
-
-_.mixin(lodashId)
-
-const db = {
-  items: []
-}
-
-// Create a new item and set a random id
-const newItem = _.insert(db.posts, { title: 'foo' })
-
-console.log(db)
-
-/*
-{
-  items: [
-    { title: 'foo', id: '5ca959c4-b5ab-4336-aa65-8a197b6dd9cb' }
-  ]
-}
-*/
-
-// Get item by id
-const item = _.getById(db.posts, newPost.id)
-```
-
 ## API
 
-The following store is used in API examples.
+In the API examples, we're assuming `db` to be:
 
 ```js
 const db = {
