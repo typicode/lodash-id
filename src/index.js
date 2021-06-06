@@ -76,7 +76,7 @@ module.exports = {
     var doc = this.getById(collection, id)
 
     if (doc) {
-      this.assign(doc, attrs, {id: doc.id})
+      this.assign(doc, attrs, {[this.__id()]: doc[this.__id()]})
     }
 
     return doc
@@ -85,9 +85,10 @@ module.exports = {
   updateWhere: function (collection, predicate, attrs) {
     var self = this
     var docs = this.filter(collection, predicate)
+    var key = this.__id()
 
     docs.forEach(function (doc) {
-      self.assign(doc, attrs, {id: doc.id})
+      self.assign(doc, attrs, {[key]: doc[key]})
     })
 
     return docs
@@ -97,9 +98,9 @@ module.exports = {
     var doc = this.getById(collection, id)
 
     if (doc) {
-      var docId = doc.id
+      var docId = doc[this.__id()]
       this.__empty(doc)
-      this.assign(doc, attrs, {id: docId})
+      this.assign(doc, attrs, {[this.__id()]: docId})
     }
 
     return doc
