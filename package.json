@@ -1,6 +1,6 @@
 {
   "name": "lodash-id",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Use JavaScript objects as databases",
   "main": "src/index.js",
   "scripts": {
