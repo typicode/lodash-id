@@ -8,7 +8,7 @@ declare module "lodash" {
   interface LoDashStatic extends TLodashId {}
   interface CollectionChain<T> {
     getById(id: string): CollectionChain<T>;
-    createId(): string;
+    createId<T>(doc: T): string;
     upsert(doc: MergeId<T>): CollectionChain<T>;
     insert(doc: T): CollectionChain<T>;
     updateById(id: string, attrs: Part<T>): CollectionChain<T>;
@@ -22,7 +22,7 @@ declare module "lodash" {
 type TLodashId = {
   id: string;
   getById: <T>(array: Array<T>, id: string) => CollectionChain<T>,
-  createId: () => string,
+  createId: <T>(array: Array<T>, doc: T) => string,
   insert: <T>(array: Array<T>, doc: T) => CollectionChain<T>,
   updateById: <T>(array: Array<T>, id: string, attrs: Part<T>) => CollectionChain<T>,
   updateWhere: <T>(array: Array<T>, predicate: ListIterateeCustom<T, boolean>, attrs: Part<T>) => CollectionChain<T[]>
