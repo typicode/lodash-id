@@ -32,6 +32,6 @@ type TLodashId = {
   removeWhere: <T>(array: Array<T>, predicate: ListIterateeCustom<T, boolean>) => CollectionChain<T[]>,
 }
 
-declare const lodashId: TLodashId
+declare const lodashId: Omit<TLodashId, 'id'>
 
 export default lodashId
