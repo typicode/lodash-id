@@ -3,6 +3,7 @@
   "version": "0.14.1",
   "description": "Use JavaScript objects as databases",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "test": "mocha && standard && pkg-ok",
     "prepush": "npm test",
@@ -40,5 +41,8 @@
     "env": {
       "mocha": true
     }
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.182"
   }
 }
